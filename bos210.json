@@ -1,0 +1,1997 @@
+[
+			{
+				"sensorID": "1",
+				"name": "011",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "0",
+				"sensorPosition": {
+					"lat": "516830938",
+					"long": "52943482"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516830994",
+							"long": "52943273"
+						},
+						{
+							"index": "1",
+							"lat": "516831035",
+							"long": "52943401"
+						},
+						{
+							"index": "2",
+							"lat": "516830883",
+							"long": "52943692"
+						},
+						{
+							"index": "3",
+							"lat": "516830841",
+							"long": "52943563"
+						},
+						{
+							"index": "4",
+							"lat": "516830994",
+							"long": "52943273"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "7",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "7",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "7",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "2",
+				"name": "012",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "1",
+				"sensorPosition": {
+					"lat": "516831526",
+					"long": "52945312"
+				},
+				"length": "800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831399",
+							"long": "52944765"
+						},
+						{
+							"index": "1",
+							"lat": "516831320",
+							"long": "52944832"
+						},
+						{
+							"index": "2",
+							"lat": "516831652",
+							"long": "52945858"
+						},
+						{
+							"index": "3",
+							"lat": "516831731",
+							"long": "52945791"
+						},
+						{
+							"index": "4",
+							"lat": "516831399",
+							"long": "52944765"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "7",
+						"distance": "1200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "7",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "7",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "3",
+				"name": "013",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "2",
+				"sensorPosition": {
+					"lat": "516832230",
+					"long": "52947491"
+				},
+				"length": "1800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831897",
+							"long": "52946304"
+						},
+						{
+							"index": "1",
+							"lat": "516831817",
+							"long": "52946370"
+						},
+						{
+							"index": "2",
+							"lat": "516832564",
+							"long": "52948678"
+						},
+						{
+							"index": "3",
+							"lat": "516832644",
+							"long": "52948612"
+						},
+						{
+							"index": "4",
+							"lat": "516831897",
+							"long": "52946304"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "7",
+						"distance": "2400"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "7"
+					}
+				}
+			},
+			{
+				"sensorID": "4",
+				"name": "014",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "3",
+				"sensorPosition": {
+					"lat": "516833331",
+					"long": "52950890"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516833390",
+							"long": "52950759"
+						},
+						{
+							"index": "1",
+							"lat": "516833432",
+							"long": "52950887"
+						},
+						{
+							"index": "2",
+							"lat": "516833272",
+							"long": "52951021"
+						},
+						{
+							"index": "3",
+							"lat": "516833231",
+							"long": "52950893"
+						},
+						{
+							"index": "4",
+							"lat": "516833390",
+							"long": "52950759"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "7",
+						"distance": "5900"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "7"
+					}
+				}
+			},
+			{
+				"sensorID": "5",
+				"name": "031",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "4",
+				"sensorPosition": {
+					"lat": "516830667",
+					"long": "52943681"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516830723",
+							"long": "52943472"
+						},
+						{
+							"index": "1",
+							"lat": "516830764",
+							"long": "52943600"
+						},
+						{
+							"index": "2",
+							"lat": "516830611",
+							"long": "52943890"
+						},
+						{
+							"index": "3",
+							"lat": "516830570",
+							"long": "52943762"
+						},
+						{
+							"index": "4",
+							"lat": "516830723",
+							"long": "52943472"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "8",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "8",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "8",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "6",
+				"name": "032",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "5",
+				"sensorPosition": {
+					"lat": "516831260",
+					"long": "52945532"
+				},
+				"length": "800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831134",
+							"long": "52944986"
+						},
+						{
+							"index": "1",
+							"lat": "516831054",
+							"long": "52945053"
+						},
+						{
+							"index": "2",
+							"lat": "516831387",
+							"long": "52946079"
+						},
+						{
+							"index": "3",
+							"lat": "516831466",
+							"long": "52946012"
+						},
+						{
+							"index": "4",
+							"lat": "516831134",
+							"long": "52944986"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "8",
+						"distance": "1200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "8",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "8",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "7",
+				"name": "033",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "6",
+				"sensorPosition": {
+					"lat": "516831966",
+					"long": "52947713"
+				},
+				"length": "1800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516832380",
+							"long": "52948833"
+						},
+						{
+							"index": "1",
+							"lat": "516832300",
+							"long": "52948900"
+						},
+						{
+							"index": "2",
+							"lat": "516831553",
+							"long": "52946592"
+						},
+						{
+							"index": "3",
+							"lat": "516831632",
+							"long": "52946525"
+						},
+						{
+							"index": "4",
+							"lat": "516832380",
+							"long": "52948833"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "8",
+						"distance": "2400"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "8"
+					}
+				}
+			},
+			{
+				"sensorID": "8",
+				"name": "034",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "7",
+				"sensorPosition": {
+					"lat": "516833067",
+					"long": "52951111"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516833125",
+							"long": "52950980"
+						},
+						{
+							"index": "1",
+							"lat": "516833167",
+							"long": "52951108"
+						},
+						{
+							"index": "2",
+							"lat": "516833008",
+							"long": "52951242"
+						},
+						{
+							"index": "3",
+							"lat": "516832966",
+							"long": "52951114"
+						},
+						{
+							"index": "4",
+							"lat": "516833125",
+							"long": "52950980"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "8",
+						"distance": "5900"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "8"
+					}
+				}
+			},
+			{
+				"sensorID": "9",
+				"name": "041",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "8",
+				"sensorPosition": {
+					"lat": "516828131",
+					"long": "52942647"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516828110",
+							"long": "52942484"
+						},
+						{
+							"index": "1",
+							"lat": "516828022",
+							"long": "52942513"
+						},
+						{
+							"index": "2",
+							"lat": "516828152",
+							"long": "52942811"
+						},
+						{
+							"index": "3",
+							"lat": "516828240",
+							"long": "52942782"
+						},
+						{
+							"index": "4",
+							"lat": "516828110",
+							"long": "52942484"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "13",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "13",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "13",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "10",
+				"name": "042",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "9",
+				"sensorPosition": {
+					"lat": "516826856",
+					"long": "52942985"
+				},
+				"length": "800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516827217",
+							"long": "52942864"
+						},
+						{
+							"index": "1",
+							"lat": "516826853",
+							"long": "52942924"
+						},
+						{
+							"index": "2",
+							"lat": "516826488",
+							"long": "52942951"
+						},
+						{
+							"index": "3",
+							"lat": "516826490",
+							"long": "52943096"
+						},
+						{
+							"index": "4",
+							"lat": "516826860",
+							"long": "52943068"
+						},
+						{
+							"index": "5",
+							"lat": "516827229",
+							"long": "52943007"
+						},
+						{
+							"index": "6",
+							"lat": "516827217",
+							"long": "52942864"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "13",
+						"distance": "1200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "13",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "13",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "11",
+				"name": "043",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "10",
+				"sensorPosition": {
+					"lat": "516825839",
+					"long": "52942976"
+				},
+				"length": "600",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516826212",
+							"long": "52943098"
+						},
+						{
+							"index": "1",
+							"lat": "516826216",
+							"long": "52942953"
+						},
+						{
+							"index": "2",
+							"lat": "516825842",
+							"long": "52942915"
+						},
+						{
+							"index": "3",
+							"lat": "516825471",
+							"long": "52942843"
+						},
+						{
+							"index": "4",
+							"lat": "516825457",
+							"long": "52942986"
+						},
+						{
+							"index": "5",
+							"lat": "516825834",
+							"long": "52943059"
+						},
+						{
+							"index": "6",
+							"lat": "516826212",
+							"long": "52943098"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "13",
+						"distance": "2800"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "13"
+					}
+				}
+			},
+			{
+				"sensorID": "12",
+				"name": "044",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "11",
+				"sensorPosition": {
+					"lat": "516817358",
+					"long": "52941130"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516817414",
+							"long": "52940996"
+						},
+						{
+							"index": "1",
+							"lat": "516817327",
+							"long": "52940977"
+						},
+						{
+							"index": "2",
+							"lat": "516817303",
+							"long": "52941264"
+						},
+						{
+							"index": "3",
+							"lat": "516817390",
+							"long": "52941283"
+						},
+						{
+							"index": "4",
+							"lat": "516817414",
+							"long": "52940996"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "13",
+						"distance": "12100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "13"
+					}
+				}
+			},
+			{
+				"sensorID": "13",
+				"name": "051",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "12",
+				"sensorPosition": {
+					"lat": "516828042",
+					"long": "52942121"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516828021",
+							"long": "52941957"
+						},
+						{
+							"index": "1",
+							"lat": "516827933",
+							"long": "52941986"
+						},
+						{
+							"index": "2",
+							"lat": "516828063",
+							"long": "52942284"
+						},
+						{
+							"index": "3",
+							"lat": "516828151",
+							"long": "52942255"
+						},
+						{
+							"index": "4",
+							"lat": "516828021",
+							"long": "52941957"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "14",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "14",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "14",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "14",
+				"name": "052",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "13",
+				"sensorPosition": {
+					"lat": "516826833",
+					"long": "52942481"
+				},
+				"length": "800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516827177",
+							"long": "52942362"
+						},
+						{
+							"index": "1",
+							"lat": "516826830",
+							"long": "52942419"
+						},
+						{
+							"index": "2",
+							"lat": "516826482",
+							"long": "52942445"
+						},
+						{
+							"index": "3",
+							"lat": "516826484",
+							"long": "52942590"
+						},
+						{
+							"index": "4",
+							"lat": "516826837",
+							"long": "52942563"
+						},
+						{
+							"index": "5",
+							"lat": "516827188",
+							"long": "52942506"
+						},
+						{
+							"index": "6",
+							"lat": "516827177",
+							"long": "52942362"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "14",
+						"distance": "1200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "14",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "14",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "15",
+				"name": "053",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "14",
+				"sensorPosition": {
+					"lat": "516825868",
+					"long": "52942472"
+				},
+				"length": "600",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516826224",
+							"long": "52942592"
+						},
+						{
+							"index": "1",
+							"lat": "516826227",
+							"long": "52942447"
+						},
+						{
+							"index": "2",
+							"lat": "516825871",
+							"long": "52942411"
+						},
+						{
+							"index": "3",
+							"lat": "516825517",
+							"long": "52942342"
+						},
+						{
+							"index": "4",
+							"lat": "516825504",
+							"long": "52942485"
+						},
+						{
+							"index": "5",
+							"lat": "516825863",
+							"long": "52942555"
+						},
+						{
+							"index": "6",
+							"lat": "516826224",
+							"long": "52942592"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "14",
+						"distance": "2800"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "14"
+					}
+				}
+			},
+			{
+				"sensorID": "16",
+				"name": "054",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "15",
+				"sensorPosition": {
+					"lat": "516817149",
+					"long": "52940561"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516817206",
+							"long": "52940428"
+						},
+						{
+							"index": "1",
+							"lat": "516817117",
+							"long": "52940409"
+						},
+						{
+							"index": "2",
+							"lat": "516817093",
+							"long": "52940695"
+						},
+						{
+							"index": "3",
+							"lat": "516817182",
+							"long": "52940714"
+						},
+						{
+							"index": "4",
+							"lat": "516817206",
+							"long": "52940428"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "14",
+						"distance": "12400"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "14"
+					}
+				}
+			},
+			{
+				"sensorID": "17",
+				"name": "111",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "16",
+				"sensorPosition": {
+					"lat": "516831387",
+					"long": "52938096"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831344",
+							"long": "52937940"
+						},
+						{
+							"index": "1",
+							"lat": "516831252",
+							"long": "52937991"
+						},
+						{
+							"index": "2",
+							"lat": "516831430",
+							"long": "52938251"
+						},
+						{
+							"index": "3",
+							"lat": "516831520",
+							"long": "52938201"
+						},
+						{
+							"index": "4",
+							"lat": "516831344",
+							"long": "52937940"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "1",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "1",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "1",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "18",
+				"name": "112",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "17",
+				"sensorPosition": {
+					"lat": "516832599",
+					"long": "52937619"
+				},
+				"length": "800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516832940",
+							"long": "52937443"
+						},
+						{
+							"index": "1",
+							"lat": "516832956",
+							"long": "52937584"
+						},
+						{
+							"index": "2",
+							"lat": "516832262",
+							"long": "52937792"
+						},
+						{
+							"index": "3",
+							"lat": "516832237",
+							"long": "52937657"
+						},
+						{
+							"index": "4",
+							"lat": "516832940",
+							"long": "52937443"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "1",
+						"distance": "1200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "1",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "1",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "19",
+				"name": "113",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "18",
+				"sensorPosition": {
+					"lat": "516834097",
+					"long": "52937381"
+				},
+				"length": "1800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516833299",
+							"long": "52937343"
+						},
+						{
+							"index": "1",
+							"lat": "516833300",
+							"long": "52937494"
+						},
+						{
+							"index": "2",
+							"lat": "516834893",
+							"long": "52937415"
+						},
+						{
+							"index": "3",
+							"lat": "516834895",
+							"long": "52937272"
+						},
+						{
+							"index": "4",
+							"lat": "516833299",
+							"long": "52937343"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "1",
+						"distance": "2400"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "1"
+					}
+				}
+			},
+			{
+				"sensorID": "20",
+				"name": "114",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "19",
+				"sensorPosition": {
+					"lat": "516835569",
+					"long": "52937456"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516835626",
+							"long": "52937324"
+						},
+						{
+							"index": "1",
+							"lat": "516835533",
+							"long": "52937302"
+						},
+						{
+							"index": "2",
+							"lat": "516835512",
+							"long": "52937588"
+						},
+						{
+							"index": "3",
+							"lat": "516835603",
+							"long": "52937609"
+						},
+						{
+							"index": "4",
+							"lat": "516835626",
+							"long": "52937324"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "1",
+						"distance": "4800"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "1"
+					}
+				}
+			},
+			{
+				"sensorID": "21",
+				"name": "121",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "20",
+				"sensorPosition": {
+					"lat": "516831509",
+					"long": "52938551"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831472",
+							"long": "52938393"
+						},
+						{
+							"index": "1",
+							"lat": "516831383",
+							"long": "52938442"
+						},
+						{
+							"index": "2",
+							"lat": "516831545",
+							"long": "52938708"
+						},
+						{
+							"index": "3",
+							"lat": "516831637",
+							"long": "52938660"
+						},
+						{
+							"index": "4",
+							"lat": "516831472",
+							"long": "52938393"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "2",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "2",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "2",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "22",
+				"name": "122",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "21",
+				"sensorPosition": {
+					"lat": "516832746",
+					"long": "52938016"
+				},
+				"length": "800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516833089",
+							"long": "52937836"
+						},
+						{
+							"index": "1",
+							"lat": "516833108",
+							"long": "52937988"
+						},
+						{
+							"index": "2",
+							"lat": "516832406",
+							"long": "52938193"
+						},
+						{
+							"index": "3",
+							"lat": "516832381",
+							"long": "52938048"
+						},
+						{
+							"index": "4",
+							"lat": "516833089",
+							"long": "52937836"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "2",
+						"distance": "1200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "2",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "2",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "23",
+				"name": "123",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "22",
+				"sensorPosition": {
+					"lat": "516834276",
+					"long": "52937822"
+				},
+				"length": "1800",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516835086",
+							"long": "52937723"
+						},
+						{
+							"index": "1",
+							"lat": "516835080",
+							"long": "52937879"
+						},
+						{
+							"index": "2",
+							"lat": "516833470",
+							"long": "52937915"
+						},
+						{
+							"index": "3",
+							"lat": "516833468",
+							"long": "52937769"
+						},
+						{
+							"index": "4",
+							"lat": "516835086",
+							"long": "52937723"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "2",
+						"distance": "2400"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "2"
+					}
+				}
+			},
+			{
+				"sensorID": "24",
+				"name": "124",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "23",
+				"sensorPosition": {
+					"lat": "516835808",
+					"long": "52937960"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516835872",
+							"long": "52937828"
+						},
+						{
+							"index": "1",
+							"lat": "516835780",
+							"long": "52937803"
+						},
+						{
+							"index": "2",
+							"lat": "516835744",
+							"long": "52938089"
+						},
+						{
+							"index": "3",
+							"lat": "516835836",
+							"long": "52938119"
+						},
+						{
+							"index": "4",
+							"lat": "516835872",
+							"long": "52937828"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "2",
+						"distance": "5100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "2"
+					}
+				}
+			},
+			{
+				"sensorID": "25",
+				"name": "221",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "24",
+				"sensorPosition": {
+					"lat": "516829311",
+					"long": "52943595"
+				},
+				"length": "75",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516829287",
+							"long": "52943515"
+						},
+						{
+							"index": "1",
+							"lat": "516829226",
+							"long": "52943562"
+						},
+						{
+							"index": "2",
+							"lat": "516829336",
+							"long": "52943675"
+						},
+						{
+							"index": "3",
+							"lat": "516829396",
+							"long": "52943627"
+						},
+						{
+							"index": "4",
+							"lat": "516829287",
+							"long": "52943515"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "9",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "9",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "9",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "26",
+				"name": "222",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "25",
+				"sensorPosition": {
+					"lat": "516827516",
+					"long": "52943952"
+				},
+				"length": "75",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516827517",
+							"long": "52943864"
+						},
+						{
+							"index": "1",
+							"lat": "516827450",
+							"long": "52943857"
+						},
+						{
+							"index": "2",
+							"lat": "516827515",
+							"long": "52944042"
+						},
+						{
+							"index": "3",
+							"lat": "516827581",
+							"long": "52944047"
+						},
+						{
+							"index": "4",
+							"lat": "516827517",
+							"long": "52943864"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "9",
+						"distance": "2200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "9",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "9",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "27",
+				"name": "223",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "26",
+				"sensorPosition": {
+					"lat": "516827382",
+					"long": "52943929"
+				},
+				"length": "75",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516827383",
+							"long": "52943841"
+						},
+						{
+							"index": "1",
+							"lat": "516827316",
+							"long": "52943834"
+						},
+						{
+							"index": "2",
+							"lat": "516827381",
+							"long": "52944019"
+						},
+						{
+							"index": "3",
+							"lat": "516827447",
+							"long": "52944024"
+						},
+						{
+							"index": "4",
+							"lat": "516827383",
+							"long": "52943841"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "9",
+						"distance": "2350"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": {
+						"laneID": "9"
+					}
+				}
+			},
+			{
+				"sensorID": "33",
+				"name": "K22",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "27",
+				"sensorPosition": {
+					"lat": "516829475",
+					"long": "52943677"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "9"
+					}
+				}
+			},
+			{
+				"sensorID": "28",
+				"name": "241",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "28",
+				"sensorPosition": {
+					"lat": "516830551",
+					"long": "52937937"
+				},
+				"length": "75",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516830577",
+							"long": "52937804"
+						},
+						{
+							"index": "1",
+							"lat": "516830602",
+							"long": "52937905"
+						},
+						{
+							"index": "2",
+							"lat": "516830526",
+							"long": "52938070"
+						},
+						{
+							"index": "3",
+							"lat": "516830500",
+							"long": "52937971"
+						},
+						{
+							"index": "4",
+							"lat": "516830577",
+							"long": "52937804"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "3",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "3",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "3",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "34",
+				"name": "K24",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "29",
+				"sensorPosition": {
+					"lat": "516830481",
+					"long": "52938051"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "3"
+					}
+				}
+			},
+			{
+				"sensorID": "29",
+				"name": "281",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "30",
+				"sensorPosition": {
+					"lat": "516831547",
+					"long": "52941100"
+				},
+				"length": "75",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831573",
+							"long": "52940967"
+						},
+						{
+							"index": "1",
+							"lat": "516831598",
+							"long": "52941067"
+						},
+						{
+							"index": "2",
+							"lat": "516831522",
+							"long": "52941232"
+						},
+						{
+							"index": "3",
+							"lat": "516831496",
+							"long": "52941133"
+						},
+						{
+							"index": "4",
+							"lat": "516831573",
+							"long": "52940967"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "4",
+						"distance": "50"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "4",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "4",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "35",
+				"name": "K28",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "31",
+				"sensorPosition": {
+					"lat": "516831624",
+					"long": "52940925"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "4"
+					}
+				}
+			},
+			{
+				"sensorID": "36",
+				"name": "K311",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "32",
+				"sensorPosition": {
+					"lat": "516831212",
+					"long": "52942405"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "10"
+					}
+				}
+			},
+			{
+				"sensorID": "37",
+				"name": "K312321",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "33",
+				"sensorPosition": {
+					"lat": "516830213",
+					"long": "52943175"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": [
+						{
+							"laneID": "11"
+						},
+						{
+							"laneID": "24"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "38",
+				"name": "K322",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "34",
+				"sensorPosition": {
+					"lat": "516829624",
+					"long": "52943619"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "25"
+					}
+				}
+			},
+			{
+				"sensorID": "41",
+				"name": "K371",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "35",
+				"sensorPosition": {
+					"lat": "516830866",
+					"long": "52938016"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "5"
+					}
+				}
+			},
+			{
+				"sensorID": "42",
+				"name": "K372381",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "36",
+				"sensorPosition": {
+					"lat": "516831197",
+					"long": "52939217"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": [
+						{
+							"laneID": "6"
+						},
+						{
+							"laneID": "21"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "43",
+				"name": "K382",
+				"sensorDeviceType": "pushButton",
+				"sensorOutput": "010000",
+				"vlogIdx": "37",
+				"sensorPosition": {
+					"lat": "516831584",
+					"long": "52940671"
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "22"
+					}
+				}
+			},
+			{
+				"sensorID": "30",
+				"name": "411",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "38",
+				"sensorPosition": {
+					"lat": "516831167",
+					"long": "52943225"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831230",
+							"long": "52943099"
+						},
+						{
+							"index": "1",
+							"lat": "516831268",
+							"long": "52943231"
+						},
+						{
+							"index": "2",
+							"lat": "516831104",
+							"long": "52943351"
+						},
+						{
+							"index": "3",
+							"lat": "516831066",
+							"long": "52943220"
+						},
+						{
+							"index": "4",
+							"lat": "516831230",
+							"long": "52943099"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "12",
+						"distance": "100"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "12",
+							"purpose": "gapMeasure"
+						},
+						{
+							"laneID": "12",
+							"purpose": "measure"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "31",
+				"name": "412",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "39",
+				"sensorPosition": {
+					"lat": "516831631",
+					"long": "52944652"
+				},
+				"length": "100",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516831690",
+							"long": "52944522"
+						},
+						{
+							"index": "1",
+							"lat": "516831732",
+							"long": "52944649"
+						},
+						{
+							"index": "2",
+							"lat": "516831572",
+							"long": "52944783"
+						},
+						{
+							"index": "3",
+							"lat": "516831531",
+							"long": "52944655"
+						},
+						{
+							"index": "4",
+							"lat": "516831690",
+							"long": "52944522"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "12",
+						"distance": "1200"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "12",
+							"purpose": "gapVerification"
+						},
+						{
+							"laneID": "12",
+							"purpose": "verification"
+						}
+					]
+				}
+			},
+			{
+				"sensorID": "32",
+				"name": "F055",
+				"sensorDeviceType": "inductionLoop",
+				"sensorOutput": "010000",
+				"vlogIdx": "40",
+				"sensorPosition": {
+					"lat": "516832962",
+					"long": "52938813"
+				},
+				"length": "500",
+				"geoShape": {
+					"indexPoint": [
+						{
+							"index": "0",
+							"lat": "516833173",
+							"long": "52938664"
+						},
+						{
+							"index": "1",
+							"lat": "516833197",
+							"long": "52938807"
+						},
+						{
+							"index": "2",
+							"lat": "516832752",
+							"long": "52938963"
+						},
+						{
+							"index": "3",
+							"lat": "516832728",
+							"long": "52938820"
+						},
+						{
+							"index": "4",
+							"lat": "516833173",
+							"long": "52938664"
+						}
+					]
+				},
+				"sensorAllocations": {
+					"sensorAllocation": {
+						"laneID": "15",
+						"distance": "1400"
+					}
+				},
+				"sensorRelations": {
+					"sensorRelation": [
+						{
+							"laneID": "7",
+							"purpose": "congestion"
+						},
+						{
+							"laneID": "14",
+							"purpose": "congestion"
+						},
+						{
+							"laneID": "15",
+							"purpose": "congestion"
+						}
+					]
+				}
+			}
+		]

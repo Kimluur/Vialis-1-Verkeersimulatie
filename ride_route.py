@@ -46,7 +46,101 @@ def latlngToScreenXY(lat, lng):
     # Returns the screen position based on reference points
     x = p0.scrX + (p1.scrX - p0.scrX) * perX
     y = p0.scrY + (p1.scrY - p0.scrY) * perY
-    return [x + 5, (resolution[1] - y) + 5]
+    return [x + 5, (resolution[1] - y) - 5 ]
 
 
 """"EINDE CODE MICK"""
+
+class Car(pg.sprite.Sprite):
+    def __init__(self, position, waypoints):
+        super().__init__()
+        self.image = pg.Surface((12, 20)) # De auto (12x20 pixel rechthoek)
+        self.image.fill(pg.Color('red'))
+        self.rect = self.image.get_rect(center=position)
+
+        self.vel = Vector2(0, 0)
+        self.max_speed = 5
+        self.position = Vector2(position)
+
+        self.waypoints = waypoints
+        self.waypoint_index = 0
+
+        self.target = self.waypoints[self.waypoint_index]
+        self.target_radius = 50
+
+    def update(self):
+        heading = self.target - self.position
+        distance = heading.length()
+        heading.normalize_ip()
+
+        if distance <= 2:
+            self.waypoint_index = (self.waypoint_index + 1) % len(self.waypoints)
+            self.target = self.waypoints[self.waypoint_index]
+
+        if distance <= self.target_radius:
+            self.vel = heading * (distance / self.target_radius * self.max_speed)
+
+        else:
+            self.vel = heading * self.max_speed
+        self.position += self.vel
+        self.rect.center = self.position
+
+
+def main():
+    with open('bos210.json') as file:
+        bos210 = json.load(file)
+    df = pd.json_normalize(bos210, max_level=2)
+
+    # data.iloc[::-1]
+    df1 = df.loc[(df['name'].str[:2] == '12')]
+    df1 = df1.iloc[::-1]
+
+    df2 = df.loc[(df['name'].str[:2] == '01')]
+    df2 = df2.iloc[::-1]
+
+    divider = 10000000
+    waypointscoor1 = []
+    waypointscoor2 = []
+    for index, row in df1.iterrows():
+        waypointscoor1.append(latlngToScreenXY(int(row['sensorPosition.lat']) / divider, int(row['sensorPosition.long']) / divider))
+    # print(waypointscoor1)
+    for index, row in df2.iterrows():
+        waypointscoor2.append(latlngToScreenXY(int(row['sensorPosition.lat']) / divider, int(row['sensorPosition.long']) / divider))
+    # print(waypointscoor1)
+    allway = waypointscoor1 + waypointscoor2
+    print(allway)
+
+
+
+
+
+    screen = pg.display.set_mode(resolution)
+    clock = pg.time.Clock()
+    background = pg.image.load('bg.png')
+
+    all_sprites = pg.sprite.Group(Car((100, 300), waypointscoor1), Car((200, 500), waypointscoor2))
+
+    run = True
+
+    while run:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                run = False
+
+        screen.blit(background, (0, 0))
+
+
+        all_sprites.update()
+        # screen.fill((30, 30, 30))
+        all_sprites.draw(screen)
+
+        for point in allway:
+            pg.draw.rect(screen, (90, 200, 40), (point, (4, 4)))
+        pg.display.flip()
+        clock.tick(60)
+
+
+if __name__ == '__main__':
+    pg.init()
+    main()
+    pg.quit()

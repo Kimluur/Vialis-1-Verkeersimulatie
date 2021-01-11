@@ -23,6 +23,7 @@ def velocity():
     return (18 / dur_act) * 3.6
 
 print(velocity())
-# give_index('013')
+give_index('013')
+
 
 

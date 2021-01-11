@@ -87,19 +87,22 @@ lusSizeDefault = (8, 8)
 
 # mainloop
 class Sensor(object):
-    def __init__(self, locatie, kleur, breedte, lengte, locgeo=0):
+    def __init__(self, locatie, kleur, breedte, lengte, locgeo=False):
         self.locatie = locatie
         self.kleur = kleur
         self.breedte = breedte
         self.lengte = lengte
         self.hitbox = (self.breedte, self.lengte)
+        self.locgeo = locgeo
         self.x = self.locatie[0]
         self.y = self.locatie[1]
 
     def draw(self, win):
-        self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
-        pygame.draw.rect(win, self.kleur, self.hitbox, 2)
-
+        if  not self.locgeo:
+            self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
+            pygame.draw.rect(win, self.kleur, self.hitbox, 2)
+        else:
+            pygame.draw.polygon(win, self.kleur, self.locatie)
 
 class Auto(object):
     def __init__(self, startLoc, eindLoc, lengteAuto, snelheid, kleur):
@@ -113,7 +116,7 @@ class Auto(object):
         self.x = startLoc[0]
         self.y = startLoc[1]
 
-    def draw(self, win):
+    def draw(self,  win):
         self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
         pygame.draw.rect(win, self.kleur, self.hitbox, 2)
 
@@ -191,15 +194,30 @@ def loadSensors(alleSensoren, dfkruis):
         elif column == "sensorPosition.lat":
             lat = dfkruis[column]
 
+
     for i in range(len(long)):
         a, b = latllongtocoord(lat[i], long[i])
         # add alle sensoren uit de csv
         if dfkruis['sensorDeviceType'][i] == "inductionLoop":
             color = (0, 255, 255)
-            alleSensoren.append(Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1]))
+            # omdat onderstaande erg lange regels zijn hier uitleg:
+            # ik pak elke hoek van de lus uit de json, vorm dit naar het correcte format,
+            # en dan projecteer ik het naar de correcte x en y locatie.
+            a = latllongtocoord(dfkruis['geoShape.indexPoint'][i][1]['lat'],dfkruis['geoShape.indexPoint'][i][1]['long'])
+            a = latlngToScreenXY(a[0],a[1])
+            b = latllongtocoord(dfkruis['geoShape.indexPoint'][i][2]['lat'],dfkruis['geoShape.indexPoint'][i][2]['long'])
+            b = latlngToScreenXY(b[0],b[1])
+            c = latllongtocoord(dfkruis['geoShape.indexPoint'][i][3]['lat'],dfkruis['geoShape.indexPoint'][i][3]['long'])
+            c = latlngToScreenXY(c[0],c[1])
+            d = latllongtocoord(dfkruis['geoShape.indexPoint'][i][4]['lat'],dfkruis['geoShape.indexPoint'][i][4]['long'])
+            d = latlngToScreenXY(d[0],d[1])
+            #hier maak ik de daadwerkelijke sensor aan, en plaats het gelijk in een lijst met alle sensoren.
+            alleSensoren.append(Sensor([a,b,c,d], color, lusSizeDefault[0]+2, lusSizeDefault[1]+2,True))
+
+
         else:
             color = (255, 0, 255)
-            alleSensoren.append(Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1]))
+            alleSensoren.append(Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1],False))
 
 
 loadSensors(alleSensoren, dfKruis1)

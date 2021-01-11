@@ -2,16 +2,20 @@ import pygame
 import pandas as pd
 import math
 import json
+
+# todo: Split in multiple .py files for readability.
+import numpy as np
+
 """
 Main file with pygame simulation
 """
-#todo: Split in multiple .py files for readability.
-import numpy as np
 # Functions and classes for setup / loading.
+
+
 def aspect_scale(img,bx,by):
     """ Scales 'img' to fit into box bx/by.
      This method will retain the original image's aspect ratio """
-    ix,iy = img.get_size()
+    ix,  iy = img.get_size()
     if ix > iy:
         # fit to width
         scale_factor = bx/float(ix)
@@ -35,6 +39,7 @@ def aspect_scale(img,bx,by):
 
     return pygame.transform.scale(img, (int(sx),int(sy)))
 
+
 class bcolors:
     #Colours for pretty printing warnings etc.
     HEADER = '\033[95m'
@@ -46,6 +51,8 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+
 def loadJsontoDf(filename):
     """Load json data in df and normalize."""
     try:
@@ -68,14 +75,11 @@ pygame.display.set_caption("AutoSim")
 background = pygame.image.load('bg.png')
 # background = aspect_scale(background, resolution[0],resolution[1])
 
-
-#Json/ data related imports
+# Json/ data related imports
 dfKruis1 = loadJsontoDf("bos210.json")
 dfKruis2 = loadJsontoDf("bos211.json")# unused TODO: NEEDS TO BE ADDED LATER!
 
-
-
-#visualisatie settings:
+# visualisatie settings:
 autoBreedte = 40
 lusSizeDefault = (8,8)
 
@@ -95,6 +99,7 @@ class Sensor(object):
         self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
         pygame.draw.rect(win, self.kleur, self.hitbox,2)
 
+
 class Auto(object):
     def __init__(self,startLoc,eindLoc,lengteAuto,snelheid,kleur):
         self.breedte = autoBreedte
@@ -110,10 +115,8 @@ class Auto(object):
     def draw(self,win):
         self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
         pygame.draw.rect(win, self.kleur, self.hitbox,2)
-
-
-
 radius = 6371    #Earth Radius in KM
+
 
 class referencePoint:
     def __init__(self, scrX, scrY, lat, lng):

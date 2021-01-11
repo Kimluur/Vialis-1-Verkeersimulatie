@@ -33,13 +33,13 @@ def to_dict():
 def kansberekening(bos210, bos211):
     # BOS210
     bos210_baan_1 = bos210['1'] / (bos210['1'] + bos210['3'])
-    bos210_baan_3 = bos210_baan_1 - 1
+    bos210_baan_3 = 1 - bos210_baan_1
 
     bos210_baan_4 = bos210['4'] / (bos210['4'] + bos210['5'])
-    bos210_baan_5 = bos210_baan_4 - 1
+    bos210_baan_5 = 1 - bos210_baan_4
 
     bos210_baan_11 = bos210['11'] / (bos210['11'] + bos210['12'])
-    bos210_baan_12 = bos210_baan_11 - 1
+    bos210_baan_12 = 1 - bos210_baan_11
 
     kansen_210 = {
         "1": bos210_baan_1,
@@ -52,13 +52,13 @@ def kansberekening(bos210, bos211):
 
     # BOS211
     bos211_baan_5 = bos211['5'] / (bos211['5'] + bos211['6'])
-    bos211_baan_6 = bos211_baan_5 - 1
+    bos211_baan_6 = 1 - bos211_baan_5
 
     bos211_baan_7 = bos211['7'] / (bos211['7'] + bos211['9'])
-    bos211_baan_9 = bos211_baan_7 - 1
+    bos211_baan_9 = 1 - bos211_baan_7
 
     bos211_baan_10 = bos211['10'] / (bos211['10'] + bos211['11'])
-    bos211_baan_11 = bos211_baan_10 - 1
+    bos211_baan_11 = 1 - bos211_baan_10
 
     kansen_211 = {
         "5": bos211_baan_5,

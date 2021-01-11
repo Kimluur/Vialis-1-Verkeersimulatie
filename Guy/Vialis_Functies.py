@@ -18,7 +18,9 @@ def velocity():
             elif i[17] == '' and activation == True:
                 activation = False
                 break
-    return sensor
+    dur_act = len(sensor) / 10
+    len_sensor = 18
+    return (18 / dur_act) * 3.6
 
 print(velocity())
 # give_index('013')

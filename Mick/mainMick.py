@@ -2,7 +2,7 @@ import pygame
 import pandas as pd
 import math
 import json
-from Mick import pygame_textinput
+import pygame_textinput
 
 """
 Main file with pygame simulation
@@ -96,6 +96,7 @@ lusSizeDefault = (8, 8)
 
 # Create TextInput-object
 textsurface = myfont.render('Afspeel tijd:', False, (0, 0, 0))
+
 textinput = pygame_textinput.TextInput("02-11-2020 00:00:00", text_color=(0, 0, 0), max_string_length = 20)
 
 # mainloop
@@ -265,7 +266,11 @@ def toTime(timeString):
     else:
         print(bcolors.FAIL + "Input string tooshort. Please check." + bcolors.HEADER)
         return False
-def redrawGameWindow(time):
+
+def toTimeArray(time):
+    print(dfTime["time"][time])
+
+def redrawGameWindow(time,currenttime):
     win.blit(background, (0, 0))
     for j in alleSensoren:
         j.draw(win,time)
@@ -273,9 +278,9 @@ def redrawGameWindow(time):
         i.draw(win)
     win.blit(createAlphaRect((300,500),125,(255,255,255)),(resolution[0]-300,20))
     win.blit(textsurface, (resolution[0]-280, 55))
+    win.blit(currenttime, (10, 10))
     win.blit(textinput.get_surface(), (resolution[0]-275, 80))
     if textinput.update(events):
-        print(toTime(textinput.get_text()))
         if toTime(textinput.get_text()):
             time =toTime(textinput.get_text())[0]
 
@@ -293,11 +298,10 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-
-
+    currenttime = myfont.render(dfTime["time"][time], False, (0, 0, 0))
     # Blit its surface onto the screen
 
     time = time + 1
-    time = redrawGameWindow(time)
+    time = redrawGameWindow(time,currenttime)
 
 pygame.quit()

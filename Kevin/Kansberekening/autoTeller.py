@@ -98,7 +98,7 @@ def main():
 
 
 # BOS210
-df_210 = read_file('../BOS210.csv')
+df_210 = read_file('BOS210.csv')
 
 b210_amount011 = df_210['011'].value_counts().tolist()
 b210_amount031 = df_210['031'].value_counts().tolist()
@@ -118,7 +118,7 @@ b210_amount121 = df_210['121'].value_counts().tolist()
 
 
 # BOS211
-df_211 = read_file('../BOS211.csv')
+df_211 = read_file('BOS211.csv')
 
 amount051 = df_211['051'].value_counts().tolist()
 amount052 = df_211['052'].value_counts().tolist()

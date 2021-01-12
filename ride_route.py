@@ -51,6 +51,9 @@ def latlngToScreenXY(lat, lng):
 
 """"EINDE CODE MICK"""
 
+def get_waypoints(lanes):
+    """FUNCTIE"""
+
 class Car(pg.sprite.Sprite):
     def __init__(self, position, waypoints):
         super().__init__()
@@ -67,8 +70,10 @@ class Car(pg.sprite.Sprite):
 
         self.target = self.waypoints[self.waypoint_index]
         self.target_radius = 50
+        self.end_target = self.waypoints[-1]
 
     def update(self):
+        print(self.end_target)
         heading = self.target - self.position
         distance = heading.length()
         heading.normalize_ip()
@@ -108,7 +113,7 @@ def main():
         waypointscoor2.append(latlngToScreenXY(int(row['sensorPosition.lat']) / divider, int(row['sensorPosition.long']) / divider))
     # print(waypointscoor1)
     allway = waypointscoor1 + waypointscoor2
-    print(allway)
+
 
 
 

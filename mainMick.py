@@ -3,6 +3,7 @@ import pandas as pd
 import math
 import json
 import unittest
+import pygame_textinput
 
 """
 Main file with pygame simulation
@@ -85,7 +86,7 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("AutoSim")
 background = pygame.image.load('bg.png')
 
-
+myfont = pygame.font.SysFont('Ariel', 36,bold= True)
 # Json/ data related imports
 dfKruis1 = loadJsontoDf("bos210.json")
 dfKruis2 = loadJsontoDf("bos211.json")  # unused TODO: NEEDS TO BE ADDED LATER!
@@ -95,6 +96,9 @@ dfTime = loadcsvtoDf("BOS210.csv")
 autoBreedte = 40
 lusSizeDefault = (8, 8)
 
+# Create TextInput-object
+textsurface = myfont.render('Afspeel tijd:', False, (0, 0, 0))
+textinput = pygame_textinput.TextInput("02-11-2020 00:00:00",text_color=(0, 0, 0),max_string_length = 20)
 
 # mainloop
 class Sensor(object):
@@ -238,16 +242,48 @@ def loadSensors(alleSensoren, dfkruis):
 
 
 loadSensors(alleSensoren, dfKruis1)
+def createAlphaRect(size,alpha,colour):
+    """Maakt een rectangle die ook transparant kan zijn, 
+    de gewone draw van pygame kan dit niet.
+    Vergeet deze niet te blitten naar het scherm!(comment voor example!)"""
+    s = pygame.Surface(size)  # the size of your rect
+    s.set_alpha(alpha)  # alpha level
+    s.fill(colour)  # this fills the entire surface
+    # after this use this is a blits:
+    #windowSurface.blit(createalpharect(), (0, 0))  # (0,0) are the top-left coordinates
+    return s
 
-
+def toTime(timeString):
+    print(textinput.get_text())
+    timedate = dfTime["time"]
+    if len(timeString) > 18:
+        if (timeString[13] == ":" and timeString[16] == ":") :
+            for i in timedate:
+                if timeString in i:
+                    return timedate.index[timedate == i].tolist()
+        else:
+            print(bcolors.FAIL + "Input string wrongsyntax. Please check." + bcolors.HEADER)
+            return False
+    else:
+        print(bcolors.FAIL + "Input string tooshort. Please check." + bcolors.HEADER)
+        return False
 def redrawGameWindow(time):
     win.blit(background, (0, 0))
     for j in alleSensoren:
         j.draw(win,time)
     for i in alleAutos:
         i.draw(win)
+    win.blit(createAlphaRect((300,500),125,(255,255,255)),(resolution[0]-300,20))
+    win.blit(textsurface, (resolution[0]-280, 55))
+    win.blit(textinput.get_surface(), (resolution[0]-275, 80))
+    if textinput.update(events):
+        print(toTime(textinput.get_text()))
+        if toTime(textinput.get_text()):
+            time =toTime(textinput.get_text())[0]
 
     pygame.display.update()
+    return time
+
 
 time = 0
 run = True
@@ -255,16 +291,15 @@ run = True
 while run:
     clock.tick(27)
 
+    events = pygame.event.get()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
-    # movement test button
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_SPACE]:
-        for i in alleAutos:
-            i.y -= i.snelheid
-    time += 1
-    redrawGameWindow(time)
+
+    # Blit its surface onto the screen
+
+    time = time + 1
+    time = redrawGameWindow(time)
 
 pygame.quit()

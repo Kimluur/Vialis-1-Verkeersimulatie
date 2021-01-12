@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def readfile(filename):
-    df = pd.read_csv(f"../Kansberekening/{filename}", delimiter=";", low_memory=False)
+    df = pd.read_csv(f"../{filename}", delimiter=";", low_memory=False)
     return df
 
 

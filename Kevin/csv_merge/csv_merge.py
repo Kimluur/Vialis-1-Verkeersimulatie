@@ -18,6 +18,7 @@ def main():
 
     mergeDF = b210.join(b211.set_index('b211_time'), on='b210_time')
 
+    mergeDF.to_csv("MergedData.csv", sep=",")
     print(mergeDF)
 
 

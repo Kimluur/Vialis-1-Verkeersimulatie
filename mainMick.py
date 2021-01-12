@@ -53,6 +53,16 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
+
+def loadcsvtoDf(filename):
+    try:
+        dftime = pd.read_csv(filename,delimiter = ";",low_memory= False)
+        print(bcolors.OKBLUE+"Loaded csv for ", filename,bcolors.HEADER)
+        return dftime
+    except:
+        print(bcolors.FAIL + "Loading csv for ", filename, " failed" + bcolors.HEADER)
+        return False
+
 def loadJsontoDf(filename):
     """Load json data in df and normalize."""
     try:
@@ -79,6 +89,7 @@ background = pygame.image.load('bg.png')
 # Json/ data related imports
 dfKruis1 = loadJsontoDf("bos210.json")
 dfKruis2 = loadJsontoDf("bos211.json")  # unused TODO: NEEDS TO BE ADDED LATER!
+dfTime = loadcsvtoDf("BOS210.csv")
 
 # visualisatie settings:
 autoBreedte = 40
@@ -87,17 +98,23 @@ lusSizeDefault = (8, 8)
 
 # mainloop
 class Sensor(object):
-    def __init__(self, locatie, kleur, breedte, lengte, locgeo=False):
+    def __init__(self, locatie, kleur, breedte, lengte,name, locgeo=False):
         self.locatie = locatie
         self.kleur = kleur
         self.breedte = breedte
         self.lengte = lengte
         self.hitbox = (self.breedte, self.lengte)
         self.locgeo = locgeo
+        self.name = name
         self.x = self.locatie[0]
         self.y = self.locatie[1]
 
-    def draw(self, win):
+    def draw(self, win,time):
+        if dfTime[self.name].iloc[time] == "|":
+            self.kleur = (255,100,100)
+        else:
+            self.kleur = (0,255,255)
+
         if  not self.locgeo:
             self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
             pygame.draw.rect(win, self.kleur, self.hitbox, 2)
@@ -187,9 +204,10 @@ def latllongtocoord(long, lat):
 
 
 def loadSensors(alleSensoren, dfkruis):
-    for column in dfkruis[['sensorDeviceType', 'sensorPosition.lat', 'sensorPosition.long']]:
-
-        if column == "sensorPosition.long":
+    for column in dfkruis[['name','sensorDeviceType', 'sensorPosition.lat', 'sensorPosition.long']]:
+        if column == "name":
+            name = dfkruis[column]
+        elif column == "sensorPosition.long":
             long = dfkruis[column]
         elif column == "sensorPosition.lat":
             lat = dfkruis[column]
@@ -197,6 +215,7 @@ def loadSensors(alleSensoren, dfkruis):
 
     for i in range(len(long)):
         a, b = latllongtocoord(lat[i], long[i])
+        sid = name[i]
         # add alle sensoren uit de csv
         if dfkruis['sensorDeviceType'][i] == "inductionLoop":
             color = (0, 255, 255)
@@ -212,27 +231,25 @@ def loadSensors(alleSensoren, dfkruis):
             d = latllongtocoord(dfkruis['geoShape.indexPoint'][i][4]['lat'],dfkruis['geoShape.indexPoint'][i][4]['long'])
             d = latlngToScreenXY(d[0],d[1])
             #hier maak ik de daadwerkelijke sensor aan, en plaats het gelijk in een lijst met alle sensoren.
-            alleSensoren.append(Sensor([a,b,c,d], color, lusSizeDefault[0]+2, lusSizeDefault[1]+2,True))
-
-
+            alleSensoren.append(Sensor([a,b,c,d], color, lusSizeDefault[0]+2, lusSizeDefault[1]+2,sid,True))
         else:
             color = (255, 0, 255)
-            alleSensoren.append(Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1],False))
+            alleSensoren.append(Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1],sid,False))
 
 
 loadSensors(alleSensoren, dfKruis1)
 
 
-def redrawGameWindow():
+def redrawGameWindow(time):
     win.blit(background, (0, 0))
     for j in alleSensoren:
-        j.draw(win)
+        j.draw(win,time)
     for i in alleAutos:
         i.draw(win)
 
     pygame.display.update()
 
-
+time = 0
 run = True
 # main game loop, everything in here updates every frame.
 while run:
@@ -247,7 +264,7 @@ while run:
     if keys[pygame.K_SPACE]:
         for i in alleAutos:
             i.y -= i.snelheid
-
-    redrawGameWindow()
+    time += 1
+    redrawGameWindow(time)
 
 pygame.quit()

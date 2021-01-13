@@ -7,6 +7,8 @@ import pygame_textinput
 """
 Main file with pygame simulation
 """
+
+
 # todo: Split in multiple .py files for readability.
 
 
@@ -52,15 +54,15 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-
 def loadcsvtoDf(filename):
     try:
-        dftime = pd.read_csv(filename,delimiter = ";",low_memory= False)
-        print(bcolors.OKBLUE+"Loaded csv for ", filename,bcolors.HEADER)
+        dftime = pd.read_csv(filename, delimiter=";", low_memory=False)
+        print(bcolors.OKBLUE + "Loaded csv for ", filename, bcolors.HEADER)
         return dftime
     except:
         print(bcolors.FAIL + "Loading csv for ", filename, " failed" + bcolors.HEADER)
         return False
+
 
 def loadJsontoDf(filename):
     """Load json data in df and normalize."""
@@ -84,11 +86,12 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("AutoSim")
 background = pygame.image.load('../bg.png')
 
-myfont = pygame.font.SysFont('Ariel', 36,bold= True)
+myfont = pygame.font.SysFont('Ariel', 36, bold=True)
 # Json/ data related imports
 dfKruis1 = loadJsontoDf("../bos210.json")
 dfKruis2 = loadJsontoDf("bos211.json")  # unused TODO: NEEDS TO BE ADDED LATER!
 dfTime = loadcsvtoDf("../BOS210.csv")
+dfStoplicht1 = loadJsontoDf("../b210_stoplicht.json")
 
 # visualisatie settings:
 autoBreedte = 40
@@ -97,13 +100,15 @@ lusSizeDefault = (8, 8)
 # Create TextInput-object
 textsurface = myfont.render('Afspeel tijd:', False, (0, 0, 0))
 
-textinput = pygame_textinput.TextInput("02-11-2020 00:00:00", text_color=(0, 0, 0), max_string_length = 20)
+textinput = pygame_textinput.TextInput("08-01-2021 00:00:00", text_color=(0, 0, 0), max_string_length=20)
+
 
 # mainloop
 class Sensor(object):
-    def __init__(self, locatie, kleur, breedte, lengte,name, locgeo=False):
+    def __init__(self, locatie, kleur, breedte, lengte, name, locgeo=False):
         self.locatie = locatie
         self.kleur = kleur
+        self.offKleur = kleur
         self.breedte = breedte
         self.lengte = lengte
         self.hitbox = (self.breedte, self.lengte)
@@ -112,17 +117,24 @@ class Sensor(object):
         self.x = self.locatie[0]
         self.y = self.locatie[1]
 
-    def draw(self, win,time):
+    def draw(self, win, time):
+        #instellingen voor lussen
         if dfTime[self.name].iloc[time] == "|":
-            self.kleur = (255,100,100)
+            self.kleur = (255, 50, 50)
         else:
-            self.kleur = (0,255,255)
-
-        if  not self.locgeo:
+            self.kleur = self.offKleur
+        #instellingen voor stoplichten
+        if dfTime[self.name].iloc[time] == "#":
+            self.kleur = (0,255,0)
+        elif dfTime[self.name].iloc[time] == "Z":
+            self.kleur = (245, 242, 51)
+        #daadwerkelijke draw functies
+        if not self.locgeo:
             self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
             pygame.draw.rect(win, self.kleur, self.hitbox, 2)
         else:
             pygame.draw.polygon(win, self.kleur, self.locatie)
+
 
 class Auto(object):
     def __init__(self, startLoc, eindLoc, lengteAuto, snelheid, kleur):
@@ -136,7 +148,7 @@ class Auto(object):
         self.x = startLoc[0]
         self.y = startLoc[1]
 
-    def draw(self,  win):
+    def draw(self, win):
         self.hitbox = (self.x + self.breedte, self.lengte + self.y, self.breedte, self.lengte)
         pygame.draw.rect(win, self.kleur, self.hitbox, 2)
 
@@ -181,7 +193,7 @@ def latlngToScreenXY(lat, lng):
     # Returns the screen position based on reference points
     x = p0.scrX + (p1.scrX - p0.scrX) * perX
     y = p0.scrY + (p1.scrY - p0.scrY) * perY
-    return [x - 5, (resolution[1] - y) - 5]
+    return [x , (resolution[1] - y) ]
 
 
 # define all objects:
@@ -206,8 +218,8 @@ def latllongtocoord(long, lat):
     return long, lat
 
 
-def loadSensors(alleSensoren, dfkruis):
-    for column in dfkruis[['name','sensorDeviceType', 'sensorPosition.lat', 'sensorPosition.long']]:
+def loadSensors(alleSensoren, dfkruis, dfstoplicht):
+    for column in dfkruis[['name', 'sensorDeviceType', 'sensorPosition.lat', 'sensorPosition.long']]:
         if column == "name":
             name = dfkruis[column]
         elif column == "sensorPosition.long":
@@ -215,33 +227,47 @@ def loadSensors(alleSensoren, dfkruis):
         elif column == "sensorPosition.lat":
             lat = dfkruis[column]
 
-
     for i in range(len(long)):
         a, b = latllongtocoord(lat[i], long[i])
         sid = name[i]
         # add alle sensoren uit de csv
         if dfkruis['sensorDeviceType'][i] == "inductionLoop":
-            color = (0, 255, 255)
+            color = (252, 144, 30)
             # omdat onderstaande erg lange regels zijn hier uitleg:
             # ik pak elke hoek van de lus uit de json, vorm dit naar het correcte format,
             # en dan projecteer ik het naar de correcte x en y locatie.
-            a = latllongtocoord(dfkruis['geoShape.indexPoint'][i][1]['lat'],dfkruis['geoShape.indexPoint'][i][1]['long'])
-            a = latlngToScreenXY(a[0],a[1])
-            b = latllongtocoord(dfkruis['geoShape.indexPoint'][i][2]['lat'],dfkruis['geoShape.indexPoint'][i][2]['long'])
-            b = latlngToScreenXY(b[0],b[1])
-            c = latllongtocoord(dfkruis['geoShape.indexPoint'][i][3]['lat'],dfkruis['geoShape.indexPoint'][i][3]['long'])
-            c = latlngToScreenXY(c[0],c[1])
-            d = latllongtocoord(dfkruis['geoShape.indexPoint'][i][4]['lat'],dfkruis['geoShape.indexPoint'][i][4]['long'])
-            d = latlngToScreenXY(d[0],d[1])
-            #hier maak ik de daadwerkelijke sensor aan, en plaats het gelijk in een lijst met alle sensoren.
-            alleSensoren.append(Sensor([a,b,c,d], color, lusSizeDefault[0]+2, lusSizeDefault[1]+2,sid,True))
+            a = latllongtocoord(dfkruis['geoShape.indexPoint'][i][1]['lat'],
+                                dfkruis['geoShape.indexPoint'][i][1]['long'])
+            a = latlngToScreenXY(a[0], a[1])
+            b = latllongtocoord(dfkruis['geoShape.indexPoint'][i][2]['lat'],
+                                dfkruis['geoShape.indexPoint'][i][2]['long'])
+            b = latlngToScreenXY(b[0], b[1])
+            c = latllongtocoord(dfkruis['geoShape.indexPoint'][i][3]['lat'],
+                                dfkruis['geoShape.indexPoint'][i][3]['long'])
+            c = latlngToScreenXY(c[0], c[1])
+            d = latllongtocoord(dfkruis['geoShape.indexPoint'][i][4]['lat'],
+                                dfkruis['geoShape.indexPoint'][i][4]['long'])
+            d = latlngToScreenXY(d[0], d[1])
+            # hier maak ik de daadwerkelijke sensor aan, en plaats het gelijk in een lijst met alle sensoren.
+            alleSensoren.append(Sensor([a, b, c, d], color, lusSizeDefault[0] + 2, lusSizeDefault[1] + 2, sid, True))
         else:
             color = (255, 0, 255)
-            alleSensoren.append(Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1],sid,False))
+            alleSensoren.append(
+                Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1], sid, False))
+
+    for i in dfstoplicht.values:
+        print()
+        kleur = (255, 0,0)
+
+        xy = latlngToScreenXY(i[1], i[2])
+        alleSensoren.append(Sensor([xy[0], xy[1]], kleur, 10, 3, i[0], False))
+        print(dfstoplicht)
 
 
-loadSensors(alleSensoren, dfKruis1)
-def createAlphaRect(size,alpha,colour):
+loadSensors(alleSensoren, dfKruis1, dfStoplicht1)
+
+
+def createAlphaRect(size, alpha, colour):
     """Maakt een rectangle die ook transparant kan zijn, 
     de gewone draw van pygame kan dit niet.
     Vergeet deze niet te blitten naar het scherm!(comment voor example!)"""
@@ -249,14 +275,15 @@ def createAlphaRect(size,alpha,colour):
     s.set_alpha(alpha)  # alpha level
     s.fill(colour)  # this fills the entire surface
     # after this use this is a blits:
-    #windowSurface.blit(createalpharect(), (0, 0))  # (0,0) are the top-left coordinates
+    # windowSurface.blit(createalpharect(), (0, 0))  # (0,0) are the top-left coordinates
     return s
+
 
 def toTime(timeString):
     print(textinput.get_text())
     timedate = dfTime["time"]
     if len(timeString) > 18:
-        if (timeString[13] == ":" and timeString[16] == ":") :
+        if (timeString[13] == ":" and timeString[16] == ":"):
             for i in timedate:
                 if timeString in i:
                     return timedate.index[timedate == i].tolist()
@@ -267,22 +294,24 @@ def toTime(timeString):
         print(bcolors.FAIL + "Input string tooshort. Please check." + bcolors.HEADER)
         return False
 
+
 def toTimeArray(time):
     print(dfTime["time"][time])
 
-def redrawGameWindow(time,currenttime):
+
+def redrawGameWindow(time, currenttime):
     win.blit(background, (0, 0))
     for j in alleSensoren:
-        j.draw(win,time)
+        j.draw(win, time)
     for i in alleAutos:
         i.draw(win)
-    win.blit(createAlphaRect((300,500),125,(255,255,255)),(resolution[0]-300,20))
-    win.blit(textsurface, (resolution[0]-280, 55))
+    win.blit(createAlphaRect((300, 500), 125, (255, 255, 255)), (resolution[0] - 300, 20))
+    win.blit(textsurface, (resolution[0] - 280, 55))
     win.blit(currenttime, (10, 10))
-    win.blit(textinput.get_surface(), (resolution[0]-275, 80))
+    win.blit(textinput.get_surface(), (resolution[0] - 275, 80))
     if textinput.update(events):
         if toTime(textinput.get_text()):
-            time =toTime(textinput.get_text())[0]
+            time = toTime(textinput.get_text())[0]
 
     pygame.display.update()
     return time
@@ -302,6 +331,6 @@ while run:
     # Blit its surface onto the screen
 
     time = time + 1
-    time = redrawGameWindow(time,currenttime)
+    time = redrawGameWindow(time, currenttime)
 
 pygame.quit()

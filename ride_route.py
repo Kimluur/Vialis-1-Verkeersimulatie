@@ -2,7 +2,10 @@ import pygame as pg
 from pygame.math import Vector2
 import math
 import pandas as pd
+import numpy as np
 import json
+
+all_sprites = []
 
 """BEGIN CODE MICK"""
 resolution = (1376, 984)
@@ -46,24 +49,21 @@ def latlngToScreenXY(lat, lng):
     # Returns the screen position based on reference points
     x = p0.scrX + (p1.scrX - p0.scrX) * perX
     y = p0.scrY + (p1.scrY - p0.scrY) * perY
-    return [x + 5, (resolution[1] - y) - 5 ]
+    return [x + 1, (resolution[1] - y) - 3 ]
 
 
 """"EINDE CODE MICK"""
 
-def get_waypoints(lanes):
-    """FUNCTIE"""
 
 class Car(pg.sprite.Sprite):
-    def __init__(self, position, waypoints):
+    def __init__(self, position, waypoints, speed, color):
         super().__init__()
-        self.image = pg.Surface((12, 20)) # De auto (12x20 pixel rechthoek)
-        self.image.fill(pg.Color('red'))
+        self.image = pg.Surface((12, 12)) # De auto (12x20 pixel rechthoek)
+        self.image.fill(pg.Color(color))
         self.rect = self.image.get_rect(center=position)
 
         self.vel = Vector2(0, 0)
-        self.max_speed = 5
-        self.position = Vector2(position)
+        self.max_speed = speed
 
         self.waypoints = waypoints
         self.waypoint_index = 0
@@ -71,60 +71,130 @@ class Car(pg.sprite.Sprite):
         self.target = self.waypoints[self.waypoint_index]
         self.target_radius = 50
         self.end_target = self.waypoints[-1]
+        self.position = Vector2(self.target[0]+5, self.target[1]+5) # Netter maken
 
     def update(self):
-        print(self.end_target)
-        heading = self.target - self.position
-        distance = heading.length()
-        heading.normalize_ip()
 
-        if distance <= 2:
-            self.waypoint_index = (self.waypoint_index + 1) % len(self.waypoints)
-            self.target = self.waypoints[self.waypoint_index]
+        if self.target != self.end_target:
+            heading = self.target - self.position
+            distance = heading.length()
+            heading.normalize_ip()
 
-        if distance <= self.target_radius:
-            self.vel = heading * (distance / self.target_radius * self.max_speed)
+            """Hieronder moeten snelheid/rem statements komen"""
+            if distance <= 2:
+                self.waypoint_index = (self.waypoint_index + 1) % len(self.waypoints)
+                self.target = self.waypoints[self.waypoint_index]
 
+            if distance <= self.target_radius:
+                self.vel = heading * (distance / self.target_radius * self.max_speed)
+
+            else:
+                self.vel = heading * self.max_speed
+            self.position += self.vel
+            self.rect.center = self.position
         else:
-            self.vel = heading * self.max_speed
-        self.position += self.vel
-        self.rect.center = self.position
-
+            self.position = Vector2(self.waypoints[0][0], self.waypoints[0][1])
+            self.waypoint_index = 1
+            self.target = Vector2(self.waypoints[self.waypoint_index][0], self.waypoints[self.waypoint_index][1])
 
 def main():
-    with open('bos210.json') as file:
-        bos210 = json.load(file)
-    df = pd.json_normalize(bos210, max_level=2)
 
-    # data.iloc[::-1]
-    df1 = df.loc[(df['name'].str[:2] == '12')]
-    df1 = df1.iloc[::-1]
+    def create_routes():
+        """Deze functie haalt alle waypoints uit de JSON,
+        alleen zodat we deze allemaal weer kunnen geven"""
+        route_points = []
+        divider = 10000000
+        file_name = 'lanes.json'
+        with open(file_name) as json_file:
+            data = json.load(json_file)
 
-    df2 = df.loc[(df['name'].str[:2] == '01')]
-    df2 = df2.iloc[::-1]
+        df = pd.json_normalize(data, 'genericLane')
+        dfUseful = df[['laneID', 'name', 'nodes.nodeXY', 'connectsTo.connection.connectingLane.lane',
+                       'connectsTo.connection.signalGroup', 'regional.addGrpC.nodes.nodeXY']]
 
-    divider = 10000000
-    waypointscoor1 = []
-    waypointscoor2 = []
-    for index, row in df1.iterrows():
-        waypointscoor1.append(latlngToScreenXY(int(row['sensorPosition.lat']) / divider, int(row['sensorPosition.long']) / divider))
-    # print(waypointscoor1)
-    for index, row in df2.iterrows():
-        waypointscoor2.append(latlngToScreenXY(int(row['sensorPosition.lat']) / divider, int(row['sensorPosition.long']) / divider))
-    # print(waypointscoor1)
-    allway = waypointscoor1 + waypointscoor2
+        """Rechte rijbanen"""
+        for node_data in dfUseful['nodes.nodeXY']:
+            for node in node_data:
+                route_points.append(latlngToScreenXY(int(node['node-LatLon']['lat']) / divider,
+                                                     int(node['node-LatLon']['lon']) / divider))
 
+        """Bochten"""
+        for index, row in dfUseful.iterrows():
+            if type(pd.notna(row['regional.addGrpC.nodes.nodeXY'])) == np.ndarray:
+                for node_data in row['regional.addGrpC.nodes.nodeXY']:
+                    route_points.append(latlngToScreenXY(int(node_data['node-LatLon']['lat']) / divider,
+                                                         int(node_data['node-LatLon']['lon']) / divider))
 
+        return route_points
 
+    route_points = create_routes()
 
+    def get_lanes_dict():
+        """Deze functie maakt twee dictionaries, een voor de rijbanen en een voor de bochten
+         Elke Rijbaan & bocht heeft een eigen nummer. Elke waypoint die bij een van die 2 hoort word
+         netjes aan dat nummer gekoppelt zodat we deze snel kunnen vinden"""
+        lanes = {}
+        curves = {}
+        divider = 10000000
+        file_name = 'lanes.json'
+        with open(file_name) as json_file:
+            data = json.load(json_file)
 
+        df = pd.json_normalize(data, 'genericLane')
+        dfUseful = df[['laneID', 'name', 'nodes.nodeXY', 'connectsTo.connection.connectingLane.lane',
+                       'connectsTo.connection.signalGroup', 'regional.addGrpC.nodes.nodeXY']]
+
+        for index, row in dfUseful.iterrows():
+            """Alle waypoints op de rechte rijbanen uitlezen & opslaan"""
+            lane_waypoints = []
+            for flat_node_data in reversed(row['nodes.nodeXY']):
+                lane_waypoints.append((latlngToScreenXY(int(flat_node_data['node-LatLon']['lat']) / divider,
+                                                        int(flat_node_data['node-LatLon']['lon']) / divider)))
+            lanes[row['name']] = lane_waypoints
+
+            """Alle waypoints in de bochten uitlezen & opslaan"""
+            if type(pd.notna(row['regional.addGrpC.nodes.nodeXY'])) == np.ndarray:  # BETERE OPLOSSING VINDEN
+                curve_waypoints = []
+                for curve_node_data in row['regional.addGrpC.nodes.nodeXY']:
+                    curve_waypoints.append(latlngToScreenXY(int(curve_node_data['node-LatLon']['lat']) / divider,
+                                                            int(curve_node_data['node-LatLon']['lon']) / divider))
+                curves[row['name']] = curve_waypoints
+        return lanes, curves
+
+    lanes, curves = get_lanes_dict()
+
+    def create_path(start_lane, end_lane):
+        """DIT IS EEN VOORBEELDFUNCTIE
+        Deze functie stippelt een route/pad uit tussen een begin en eind.
+        De auto kan voor het stoplicht nog van baan wisselen."""
+        file_name = 'lanes.json'
+        with open(file_name) as json_file:
+            data = json.load(json_file)
+        df = pd.json_normalize(data, 'genericLane')
+        dfUseful = df[['laneID', 'name', 'nodes.nodeXY', 'connectsTo.connection.connectingLane.lane',
+                       'connectsTo.connection.signalGroup', 'regional.addGrpC.nodes.nodeXY']]
+
+        path = []
+
+        path.extend(lanes[start_lane][:-1])
+        path.extend(curves[end_lane])
+
+        df_connected = dfUseful.loc[dfUseful['name'] == end_lane]
+        if pd.notna(df_connected['connectsTo.connection.connectingLane.lane']).iloc[0]:
+            connected_id = df_connected['connectsTo.connection.connectingLane.lane'].iloc[0]
+            connected_name = dfUseful.loc[dfUseful['laneID'] == connected_id]['name'].iloc[0]
+            path.extend(reversed(lanes[connected_name]))
+        return path
+
+    """AUTOS AANMAKEN"""
+    all_sprites = pg.sprite.Group(Car((300, 100), create_path('11-1', '12-1'), 15, 'red'),
+                                  Car((300, 100), create_path('03-1', '03-1'), 15, 'yellow'),
+                                  Car((300, 100), create_path('05-1', '05-1'), 15, 'orange'),
+                                  Car((200, 500), create_path('11-1', '11-1'), 13,'green'))
 
     screen = pg.display.set_mode(resolution)
     clock = pg.time.Clock()
     background = pg.image.load('bg.png')
-
-    all_sprites = pg.sprite.Group(Car((100, 300), waypointscoor1), Car((200, 500), waypointscoor2))
-
     run = True
 
     while run:
@@ -133,14 +203,12 @@ def main():
                 run = False
 
         screen.blit(background, (0, 0))
-
-
         all_sprites.update()
-        # screen.fill((30, 30, 30))
         all_sprites.draw(screen)
 
-        for point in allway:
+        for point in route_points:
             pg.draw.rect(screen, (90, 200, 40), (point, (4, 4)))
+        # pg.draw.rect(screen, (255, 0, 0), ([1277.3794196302945, 194.5669175480581], (5, 5)))
         pg.display.flip()
         clock.tick(60)
 

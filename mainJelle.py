@@ -87,7 +87,8 @@ resolution = (1376, 984)
 win = pygame.display.set_mode(resolution)
 clock = pygame.time.Clock()
 pygame.display.set_caption("AutoSim")
-background = pygame.image.load('../bg.png')
+background = pygame.image.load('../bg2.png') # 2 kruispunten
+# background = pygame.image.load('../bg.png') # Alleen wilhelminaplein
 
 myfont = pygame.font.SysFont('Ariel', 36, bold=True)
 # Json/ data related imports

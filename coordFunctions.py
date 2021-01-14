@@ -1,5 +1,6 @@
 import math
-resolution = (1376, 984)
+# resolution = (1376, 984)
+resolution = (598, 1089)
 radius = 6371
 
 class referencePoint:
@@ -9,11 +10,16 @@ class referencePoint:
         self.lat = lat
         self.lng = lng
 
-
+"""2 Kruispunten"""
 # Calculate global X and Y for top-left reference point
-p0 = referencePoint(0, 0, 51.68230193746829, 5.2926443213164776)
+p0 = referencePoint(0, 0, 51.685006554287455, 5.292621493274061)
 # Calculate global X and Y for bottom-right reference point
-p1 = referencePoint(resolution[0], resolution[1], 51.68392685202088, 5.2963135830851416)
+p1 = referencePoint(resolution[0], resolution[1], 51.68145939060922, 5.295751094719896)
+
+
+"""1 Kruispunt"""
+# p0 = referencePoint(0, 0, 51.68230193746829, 5.2926443213164776)
+# p1 = referencePoint(resolution[0], resolution[1], 51.68392685202088, 5.2963135830851416)
 
 
 # This function converts lat and lng coordinates to GLOBAL X and Y positions

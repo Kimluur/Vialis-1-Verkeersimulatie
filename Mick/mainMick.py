@@ -5,6 +5,7 @@ import numpy as np
 import math
 import json
 import pygame_textinput
+from coordFunctions import *
 
 """
 Main file with pygame simulation

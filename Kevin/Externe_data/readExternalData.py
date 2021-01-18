@@ -12,7 +12,7 @@ def add_hour(datafr):
 
 
 def main():
-    df = pd.read_csv('1.csv', delimiter=";")
+    df = pd.read_csv('GPS_data.csv', delimiter=";")
 
     df.timestamp = df.timestamp.str.slice(stop=19)
 

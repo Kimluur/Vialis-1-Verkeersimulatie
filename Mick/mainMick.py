@@ -6,43 +6,10 @@ import math
 import json
 import pygame_textinput
 from coordFunctions import *
-
+from pygameExtras import *
 """
 Main file with pygame simulation
 """
-
-
-# todo: Split in multiple .py files for readability.
-
-
-# Functions and classes for setup / loading.
-def aspect_scale(img, bx, by):
-    """ Scales 'img' to fit into box bx/by.
-     This method will retain the original image's aspect ratio """
-    ix, iy = img.get_size()
-    if ix > iy:
-        # fit to width
-        scale_factor = bx / float(ix)
-        sy = scale_factor * iy
-        if sy > by:
-            scale_factor = by / float(iy)
-            sx = scale_factor * ix
-            sy = by
-        else:
-            sx = bx
-    else:
-        # fit to height
-        scale_factor = by / float(iy)
-        sx = scale_factor * ix
-        if sx > bx:
-            scale_factor = bx / float(ix)
-            sx = bx
-            sy = scale_factor * iy
-        else:
-            sy = by
-
-    return pygame.transform.scale(img, (int(sx), int(sy)))
-
 
 class bcolors:
     # Colours for pretty printing warnings etc.
@@ -180,47 +147,6 @@ class Car(pygame.sprite.Sprite):
             self.target = Vector2(self.waypoints[self.waypoint_index][0], self.waypoints[self.waypoint_index][1])
 
 
-radius = 6371  # Earth Radius in KM
-
-
-class referencePoint:
-    def __init__(self, scrX, scrY, lat, lng):
-        self.scrX = scrX
-        self.scrY = scrY
-        self.lat = lat
-        self.lng = lng
-
-
-# Calculate global X and Y for top-left reference point
-p0 = referencePoint(0, 0, 51.68230193746829, 5.2926443213164776)
-# Calculate global X and Y for bottom-right reference point
-p1 = referencePoint(resolution[0], resolution[1], 51.68392685202088, 5.2963135830851416)
-
-
-# This function converts lat and lng coordinates to GLOBAL X and Y positions
-def latlngToGlobalXY(lat, lng):
-    # Calculates x based on cos of average of the latitudes
-    x = radius * lng * math.cos((p0.lat + p1.lat) / 2)
-    # Calculates y based on latitude
-    y = radius * lat
-    return {'x': x, 'y': y}
-
-
-# This function converts lat and lng coordinates to SCREEN X and Y positions
-def latlngToScreenXY(lat, lng):
-    # Calculate global X and Y for projection point
-    pos = latlngToGlobalXY(lat, lng)
-    p0.pos = latlngToGlobalXY(p0.lat, p0.lng)
-    p1.pos = latlngToGlobalXY(p1.lat, p1.lng)
-    # Calculate the percentage of Global X position in relation to total global width
-    perX = ((pos['x'] - p0.pos['x']) / (p1.pos['x'] - p0.pos['x']))
-    # Calculate the percentage of Global Y position in relation to total global height
-    perY = ((pos['y'] - p0.pos['y']) / (p1.pos['y'] - p0.pos['y']))
-
-    # Returns the screen position based on reference points
-    x = p0.scrX + (p1.scrX - p0.scrX) * perX
-    y = p0.scrY + (p1.scrY - p0.scrY) * perY
-    return [x , (resolution[1] - y) ]
 
 
 # define all objects:
@@ -230,15 +156,12 @@ def latlngToScreenXY(lat, lng):
 alleSensoren = []
 
 
-def latllongtocoord(long, lat):
-    """Small data miscommunication fix, 50000 to 5.0000 etc. so making it valid coordinates"""
-    long = float(str(long)[:2] + '.' + str(long)[2:])
-    lat = float(str(lat)[:1] + '.' + str(lat)[1:])
-
-    return long, lat
 
 
 def loadSensors(alleSensoren, dfkruis, dfstoplicht):
+    """
+    Een grote functie die alle type sensoren en stoplichten inlaad, en hierbij belangrijke informatie toevoegt.
+    """
     for column in dfkruis[['name', 'sensorDeviceType', 'sensorPosition.lat', 'sensorPosition.long']]:
         if column == "name":
             name = dfkruis[column]
@@ -287,19 +210,14 @@ def loadSensors(alleSensoren, dfkruis, dfstoplicht):
 loadSensors(alleSensoren, dfKruis1, dfStoplicht1)
 
 
-def createAlphaRect(size, alpha, colour):
-    """Maakt een rectangle die ook transparant kan zijn, 
-    de gewone draw van pygame kan dit niet.
-    Vergeet deze niet te blitten naar het scherm!(comment voor example!)"""
-    s = pygame.Surface(size)  # the size of your rect
-    s.set_alpha(alpha)  # alpha level
-    s.fill(colour)  # this fills the entire surface
-    # after this use this is a blits:
-    # windowSurface.blit(createalpharect(), (0, 0))  # (0,0) are the top-left coordinates
-    return s
 
 
 def toTime(timeString):
+    """
+    Gegeven een specifieke tijd string zoekt deze functie op welke tijd uit de csv het meest dichtbij is
+    en returned deze tijd in de vorm van array numbers. Returned false en print een error message
+    als de tijd niet in het correcte format is.
+    """
     print(textinput.get_text())
     timedate = dfTime["time"]
     if len(timeString) > 18:
@@ -315,33 +233,7 @@ def toTime(timeString):
         return False
 
 
-def toTimeArray(time):
-    # Todo: make reverse function of toTime
-    print(dfTime["time"][time])
 
-
-def redrawGameWindow(time, currenttime):
-    win.blit(background, (0, 0))
-    for j in alleSensoren:
-        j.draw(win, time)
-    win.blit(createAlphaRect((300, 500), 125, (255, 255, 255)), (resolution[0] - 300, 20))
-    win.blit(textsurface, (resolution[0] - 280, 55))
-    win.blit(currenttime, (10, 10))
-    win.blit(textinput.get_surface(), (resolution[0] - 275, 80))
-    if textinput.update(events):
-        if toTime(textinput.get_text()):
-            time = toTime(textinput.get_text())[0]
-
-    all_sprites.update()
-    all_sprites.draw(win)
-
-    for point in route_points:
-        pygame.draw.rect(win, (90, 200, 40), (point, (4, 4)))
-    # pygame.draw.rect(screen, (255, 0, 0), ([1277.3794196302945, 194.5669175480581], (5, 5)))
-    pygame.display.flip()
-
-    pygame.display.update()
-    return time
 
 def create_routes():
     """Deze functie haalt alle waypoints uit de JSON,
@@ -408,9 +300,11 @@ def get_lanes_dict():
 lanes, curves = get_lanes_dict()
 
 def create_path(start_lane, end_lane):
-    """DIT IS EEN VOORBEELDFUNCTIE
+    """
+    DIT IS EEN VOORBEELDFUNCTIE
     Deze functie stippelt een route/pad uit tussen een begin en eind.
-    De auto kan voor het stoplicht nog van baan wisselen."""
+    De auto kan voor het stoplicht nog van baan wisselen.
+    """
     file_name = 'lanes.json'
     with open(file_name) as json_file:
         data = json.load(json_file)
@@ -437,6 +331,30 @@ all_sprites = pygame.sprite.Group(Car((300, 100), create_path('11-1', '12-1'), 1
                               Car((300, 100), create_path('41-1', '41-1'), 15, 'purple'),
                               Car((300, 100), create_path('04-1', '04-1'), 15, 'brown'),
                               Car((200, 500), create_path('11-1', '11-1'), 13,'green'))
+
+
+def redrawGameWindow(time, currenttime):
+    win.blit(background, (0, 0))
+    for j in alleSensoren:
+        j.draw(win, time)
+    win.blit(createAlphaRect((300, 500), 125, (255, 255, 255)), (resolution[0] - 300, 20))
+    win.blit(textsurface, (resolution[0] - 280, 55))
+    win.blit(currenttime, (10, 10))
+    win.blit(textinput.get_surface(), (resolution[0] - 275, 80))
+    if textinput.update(events):
+        if toTime(textinput.get_text()):
+            time = toTime(textinput.get_text())[0]
+
+    all_sprites.update()
+    all_sprites.draw(win)
+
+    for point in route_points:
+        pygame.draw.rect(win, (90, 200, 40), (point, (4, 4)))
+    # pygame.draw.rect(screen, (255, 0, 0), ([1277.3794196302945, 194.5669175480581], (5, 5)))
+    pygame.display.flip()
+
+    pygame.display.update()
+    return time
 
 
 time = 0

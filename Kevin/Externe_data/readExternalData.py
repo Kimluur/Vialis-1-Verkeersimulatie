@@ -33,6 +33,10 @@ def fill_coords(datafr):
     return datafr
 
 
+def fix_timestamp(datafr):
+    datafr['timestamp'] = datafr['timestamp'].str.slice(stop=21)
+
+
 def main():
     # Lees CSV
     df = pd.read_csv('1.csv', delimiter=";")
@@ -53,6 +57,10 @@ def main():
     df['timestamp'] = df["timestamp"].dt.strftime("%d-%m-%Y %H:%M:%S.%f")
 
     df = fill_coords(df)
+
+    fix_timestamp(df)
+
+    print(df)
 
 
 if __name__ == '__main__':

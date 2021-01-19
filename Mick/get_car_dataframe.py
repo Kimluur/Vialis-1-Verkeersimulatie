@@ -14,7 +14,7 @@ def fix_timestamp(datafr):
 
 def main_dataframe():
     # Lees CSV
-    df = pd.read_csv('1.csv', delimiter=";")
+    df = pd.read_csv('../1.csv', delimiter=";")
 
     # Converteer 'timestamp' om naar datetime
     df.timestamp = df.timestamp.str.slice(stop=19)

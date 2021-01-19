@@ -11,6 +11,8 @@ from datetime import timedelta
 def add_hour(datafr):
     datafr.timestamp = pd.DatetimeIndex(datafr.timestamp) + timedelta(hours=1)
 
+    return datafr
+
 
 # Interpoleert missende datapunten
 def fill_coords(datafr):
@@ -28,7 +30,7 @@ def fill_coords(datafr):
     #         print(datafr.at[nonNA[j + 1], 'latitude'])
 
     # Er is een interpolatie functie in Pandas >->
-    datafr.interpolate(method='linear', inplace=True)
+    datafr.interpolate(method='quadratic', inplace=True)
 
     return datafr
 
@@ -45,7 +47,7 @@ def main():
     df.timestamp = df.timestamp.str.slice(stop=19)
 
     # Voeg één uur toe aan tijd, als correctie
-    add_hour(df)
+    df = add_hour(df)
 
     # Vul tijden in met milliseconden
     df = df.set_index('timestamp').resample("100ms").first().reset_index().reindex(columns=df.columns)

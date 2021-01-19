@@ -11,6 +11,7 @@ def rename_columns(datafr, prefix):
 
     return datafr
 
+
 def main():
     b210 = rename_columns(readfile('BOS210.csv'), "b210_")
     b211 = rename_columns(readfile('BOS211.csv'), "b211_")

@@ -85,7 +85,6 @@ def kansberekening(bos210, bos211):
     return kansen_210, kansen_211
 
 
-
 def main():
     dict210, dict211 = to_dict()
 

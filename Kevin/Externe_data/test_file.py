@@ -7,6 +7,10 @@ from datetime import timedelta
 
 class testTime(unittest.TestCase):
     def test_add_hour(self):
+        """
+        Deze test test of de functie add_hour() precies één uur
+        bij alle tijden van een Dataframe toevoegt.
+        """
         timeDF = pd.DataFrame({"timestamp": ['01-01-2021 00:00:00',
                                              '01-01-2021 01:00:00',
                                              '01-01-2021 02:00:00',

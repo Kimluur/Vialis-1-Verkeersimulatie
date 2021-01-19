@@ -7,15 +7,24 @@ import pandas as pd
 from datetime import timedelta
 
 
-# Voegt een uur toe aan 'timestamp', omdat de tijd verkeerd was.
+
 def add_hour(datafr):
+    """
+    Voegt een uur toe aan 'timestamp', omdat de tijd verkeerd was.
+
+    :return DataFrame
+    """
     datafr.timestamp = pd.DatetimeIndex(datafr.timestamp) + timedelta(hours=1)
 
     return datafr
 
 
-# Interpoleert missende datapunten
 def fill_coords(datafr):
+    """
+    Interpoleert op cellen met NaN waarden
+
+    :return DataFrame
+    """
     # df_dropped_na = datafr.dropna()
     # nonNA = list(df_dropped_na.index.values)
     #
@@ -36,7 +45,16 @@ def fill_coords(datafr):
 
 
 def fix_timestamp(datafr):
+    """
+    Timestamps hebben onnodig veel nullen aan het einde.
+    Deze functie haalt die onnodige nullen weg
+
+    :return DataFrame
+    """
+
     datafr['timestamp'] = datafr['timestamp'].str.slice(stop=21)
+
+    return datafr
 
 
 def main():
@@ -58,9 +76,11 @@ def main():
     # Zet tijd in juiste format
     df['timestamp'] = df["timestamp"].dt.strftime("%d-%m-%Y %H:%M:%S.%f")
 
+    # Interpoleer op cellen met NaN waarden
     df = fill_coords(df)
 
-    fix_timestamp(df)
+    # Fix de timestamps
+    df = fix_timestamp(df)
 
     print(df)
 

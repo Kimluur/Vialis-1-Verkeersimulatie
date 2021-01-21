@@ -47,7 +47,7 @@ Stoplichten worden weergegeven in de kleur die ze op dat moment weergeven en zij
 **Een voorbeeld** 
 
 
-![Visualisatie](https://github.com/mickers13/Vialis-1-Verkeersimulatie/tree/main/Main_Program/overig/visualisatie.PNG)
+![Visualisatie](https://github.com/mickers13/Vialis-1-Verkeersimulatie/blob/main/Main_Program/overig/visualisatie.PNG)
 
 ## Test code
 

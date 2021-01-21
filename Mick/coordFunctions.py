@@ -40,3 +40,10 @@ def latlngToScreenXY(lat, lng):
     x = p0.scrX + (p1.scrX - p0.scrX) * perX
     y = p0.scrY + (p1.scrY - p0.scrY) * perY
     return [x + 1, (resolution[1] - y) - 3 ]
+
+def latllongtocoord(long, lat):
+    """Small data miscommunication fix, 50000 to 5.0000 etc. so making it valid coordinates"""
+    long = float(str(long)[:2] + '.' + str(long)[2:])
+    lat = float(str(lat)[:1] + '.' + str(lat)[1:])
+
+    return long, lat

@@ -146,7 +146,7 @@ def trackCar(time, drivelane):
         tijd = df1["time"][(df1[column] == "|")]
         car[tijd.iloc[0]] = column
 
-    with open('../data/oneCarTrak.json', 'w') as json_file:
+    with open('../data/one_car_trak.json', 'w') as json_file:
         json.dump(car, json_file)
 
 # trackCar('08-01-2021 00:02:30.3', 11)

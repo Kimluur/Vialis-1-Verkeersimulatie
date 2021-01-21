@@ -23,7 +23,7 @@ Om de visualisatie te runnen ga naar `Main_Program\` en run het bestand `main.py
 
 Er zou een pygame omgeving geopend moeten worden. In deze omgeving kan er een tijd ingevoerd worden om de visualisatie te runnen.
 
-### optionele feature, maar nog niet geheel gebruiksvriendelijk
+### Optionele feature, maar nog niet geheel gebruiksvriendelijk
 
 Ook kun je een afbeelding van een kaart "uitknippen" en deze toevoegen voordat je een simulatie uitvoerd. Bijvoorkeur in png format
 Noteer hiervan de latitude en longitude van links-boven hoek en rechts-onder hoek, deze zijn nodig om de simulatie op deze locatie weer tegeven.
@@ -36,7 +36,7 @@ Noem de afbeelding "bg.png" zodat het programma het kan vinden
 ** Dit hebben we binnen deze tijd helaas niet kunnen oplossen omdat de afbeelding dan "gescaled" zou moeten worden, met verhoudingen niet alleen aan de resolutie, maar ook met de longitude en latitude van de wereld.
 
 
-## Uitleg van de Visualisatie zelf.
+## Uitleg van de Visualisatie zelf
 
 De cyaan gekleurde vierkanten zijn lussen, deze lichten op in een oranje kleur als deze geactiveerd word.
 Druk knoppen zijn paarse vierkantjes, en veranderen ook naar oranje wanneer geactiveerd.
@@ -63,6 +63,8 @@ Zodra je `main.py` hebt uitgevoerd kun je de tijd aanpassen, en hier naar bepaal
 Wij zelf hebben een experiment opgezet om de heatmap te controleren met extern vergaarde data, dit hebben we gedaan met extern vergaarde gps data.
 Deze data hebben we over onze simulatie heen gemapped om te kijken of de sensoren, verkeerslichten en onze algoritmes correct zijn. 
 Als je zelf ook wil kijken naar onze data kun je tussen `14:54` en `15:25` op 10/01/2021 zelf verschillende tijden bekijken en zien waar wij hebben gereden over het voorbeeld kruispunt.
+
+
 Zo kun je zien dat een groot deel van onze simulatie erg goed overeenkomt, maar helaas door het interpoleren rijd de auto soms erg langzaam door rood. Dit is natuurlijk niet in het echt gebeurd, en is een probleem waar we helaas niet aantoegekomen zijn binnen de tijd van dit project.
 Ook is er een kleine delay met het "afkoelen" van de heatmap, onstaan door ongeveer hetzelfde probleem met het interpoleren. Dit zou ook een van de volgende features zijn die we kunnen toevoegen. Maar de simulatie werkt ook erg goed zonder.
 

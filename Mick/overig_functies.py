@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
 
-
-
 rijbanen = [['01','011'],
                 ['03', '031'],
                 ['04', '041'],
@@ -60,7 +58,7 @@ def give_index(column_name):
 
 def velocity():
     """
-    Reads csv to see how long an activation is and with the distance that TODO: add distance variable
+    Reads csv to see how long an activation is and with the distance that
     calculates the velocity in km/h
     :return: velocity in km/h
     """
@@ -114,17 +112,13 @@ def busy_graph():
         plt.ylabel("Average activations per minute")
         plt.show()
 
-
-# busy_graph()
-
 def csv2pd(filename):
     df = pd.read_csv(f"../{filename}", delimiter=";", low_memory=True)
     return df
 
-
 def trackCar(time, drivelane):
     """
-
+    Tracks one car between 2 given times
     :param time:
     :param drivelane: input integer from drivelane name
     :return:
@@ -155,9 +149,7 @@ def trackCar(time, drivelane):
     with open('oneCarTrak.json', 'w') as json_file:
         json.dump(car, json_file)
 
-
-
-trackCar('08-01-2021 00:02:30.3', 11)
+# trackCar('08-01-2021 00:02:30.3', 11)
 
 
 

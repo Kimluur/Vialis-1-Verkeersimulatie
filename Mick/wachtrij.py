@@ -1,75 +1,46 @@
 import json
 import pandas as pd
-from Mick.Vialis_Functies import csv2pd
+from Mick.overig_functies import csv2pd
 from tqdm import tqdm
-
+import re
 
 df = csv2pd('BOS210_20210108_20210112.csv')
-rijbanen = [['01','011'],
-                ['03', '031'],
-                ['04', '041'],
-                ['05', '051'],
-                ['11', '111'],
-                ['12', '121'],
-                ['41', '411']]
-rijbanen_full = [['01','011', '014'],
-                ['03','031', '034'],
-                ['04','041', '044'],
-                ['05','051', '054'],
-                ['11','111', '114'],
-                ['12','121', '124'],
-                ['41','411', '412']]
 
-
-def wachtrij(rijbanen):
+def lane_group(df):
     """
-    Counts how many cars went by in a day for every lane
-    :param rijbanen: a list with all possible lanes
-    :return:
+    Makes nested list with all of the sensors and corresponding traffic lights
+    :param df: pandas dataframe from the intersection csv
+    :return: nested list
     """
-    rijbanen = ['011','031','041','051','111','121','411']
-    # df = csv2pd('BOS210.csv')
+    kolommen = list(df.columns)[1:]
+    rijbanen = []
 
-    for i in rijbanen:
-        print(f"{i[0]}: " + tel(df[i]))
-        return
+    for column in kolommen:
+        if len(column) == 2:
+            lane = [column]
+            for lane_sensor in kolommen:
+                if re.search(f"(^{column}[0-9])", lane_sensor): # (^{column}[0-9][0-9])|
+                    lane.append(lane_sensor)
+            if len(lane) >= 3:
+                rijbanen.append(lane)
+    return rijbanen
 
-def tel(df1):
+
+def wachtrij_red(rijbanen, df):
     """
-    Counts how many times a sensor turns on.
-    :param df1: pandas serie
-    :return: the amount of cars as string
-    """
-    cars = 0
-    is_act = False
-    for row in df1:
-        if row == "|":
-            if is_act:
-                pass
-            else:
-                cars += 1
-                is_act = True
-        else:
-            if is_act:
-                is_act = False
-    return str(cars)
-
-
-def wachtrij_red(rijbanen_full, df):
-    """
-
-    :param rijbanen_full: nested list with the columns [time, lane traffic light, 1st sensor, 4th sensor]
+    Counts the amount of cars for each lane while traffic light is red
+    :param rijbanen: nested list with the time, traffic light/lane number, lane sensors
     :param df: pandas dataframe from the intersection csv
     :return: dictionary with the times and numbering of cars
     """
     w = dict()
-    for lane in rijbanen_full:
+    for lane in rijbanen:
         lane.insert(0, "time")
         s = None
         e = None
         red = False
         begin_time = None
-        w[lane[2]] = dict()
+        w[lane[1]] = dict()
         for index in tqdm(range(1, len(df[lane[1]]))):
             if df.at[index, lane[1]] != "#" and df.at[index, lane[1]] != "Z":
                 if red:
@@ -85,14 +56,21 @@ def wachtrij_red(rijbanen_full, df):
                 else:
                     continue
             if s != None and e != None:
-                df_lane = df.loc[s:e, [x for i,x in enumerate(lane) if i!=1]]
+                df_lane = df.loc[s:e, [x for i,x in enumerate(lane) if i!=1 or i!=3 or i!=4]]
                 cars = tel_red(df_lane, s)
-                w[lane[2]].update(cars)
+                w[lane[1]].update(cars)
 
     with open('w_red.json', 'w') as fp:
         json.dump(w, fp)
+    print("Done with generating w_red.json")
 
 def tel_red(df, begin_index):
+    """
+    Counts amount of cars while traffic light is red for a lane
+    :param df: pandas dataframe from the intersection csv
+    :param begin_index: index of time when traffic light turns red
+    :return: dictionary with time and numbered car
+    """
     time_cars = dict()
     df_cols = df.columns.tolist()
     for lane in df:
@@ -116,8 +94,7 @@ def tel_red(df, begin_index):
                         continue
     return time_cars
 
-# wachtrij_red(rijbanen_full, df)
-
+wachtrij_red(lane_group(df), df)
 
 def wachtrij_green(rijbanen, df):
     """
@@ -128,14 +105,14 @@ def wachtrij_green(rijbanen, df):
     :return: a dictionary with for each lane all of the timestamps where the light was green and how many cars passed by
     """
     wachtrijen = dict()
-    for i in tqdm(rijbanen):
+    for i in rijbanen:
         s = None
         e = None
         i.insert(0, "time")
         green = False
-        wachtrijen[i[2]] = dict()
+        wachtrijen[i[1]] = dict()
 
-        for j in range(len(df[i[1]])): # door de index heen
+        for j in tqdm(range(len(df[i[1]]))): # door de index heen
             if df.loc[j, i[1]] == "#" or df.loc[j, i[1]] == "Z":
                 if green:
                     continue
@@ -151,17 +128,18 @@ def wachtrij_green(rijbanen, df):
             if s != None and e != None:
                 serie = df.loc[s:e, i[2]]
                 cars = tel_deact(serie)
-                wachtrijen[i[2]][df.at[s, i[0]]] = cars
+                wachtrijen[i[1]][df.at[s, i[0]]] = cars
 
     with open('w_green.json', 'w') as fp:
         json.dump(wachtrijen, fp)
+    print("Done with generating w_green.json")
 
 def tel_deact(serie):
     """
     Counts amount of cars from a serie when there is an activation.
     When the sensor then turns off there is a car added.
-    :param serie:
-    :return:
+    :param serie: slice from sensor column in the dataframe when the traffic light turns green
+    :return: amount of cars that went by while traffic light was green
     """
     act = False
     cars = 0
@@ -173,13 +151,17 @@ def tel_deact(serie):
             cars += 1
     return cars
 
-# wachtrij_green(rijbanen, df)
+wachtrij_green(lane_group(df), df)
 
-
-def wachtrij_df(df):
-    dfHeat['time'] = dfHeat.index
+def wachtrij_csv(rijbanen, df):
+    """
+    Merges w_red and w_green into csv file, missing times are filled with interpolation
+    :param rijbanen: nested list with [traffic light, sensor in front of traffic light] columns
+    :param df: pandas dataframe with all of the data of an intersection
+    :return: csv file with how many cars are on the lanes
+    """
     tijd = df["time"]
-    kolommen = ['01', '03', '04', '05', '11', '12', '41']
+    kolommen = [x[0] for x in rijbanen]
     df_w = pd.DataFrame(columns=kolommen)
     df_w.insert(0, "time", tijd)
     df_w = df_w.set_index('time')
@@ -201,11 +183,12 @@ def wachtrij_df(df):
     df_w = df_w.apply(pd.to_numeric)
     df_w.interpolate(method='linear', inplace=True)
     df_w = df_w.apply(round)
+    df_w = df_w.fillna(0)
 
-    # TODO: zodra laatste keer groen is zou je het aantal auto's naar 0 kunnen laten gaan. Dus voeg bij laatste tijdstip dat het groen/geel een 0 waarde in zodat er een vloeiendere loop is tussen groen en rood waardes.
-    return df_w
+    df_w.insert(0, "time", df_w.index)
+    df_w.to_csv('Wachtrij.csv',index=False)
 
-
+wachtrij_csv(lane_group(df), df)
 
 
 

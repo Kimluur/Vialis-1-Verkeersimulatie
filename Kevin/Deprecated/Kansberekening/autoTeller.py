@@ -1,3 +1,10 @@
+""""
+Dit bestand werd gebruikt om de verhouding te krijgen tussen
+welke rijbanen het meeste werden gebruikt. Omdat we niet echt
+een simulatie meer maken waar we auto's spawnen, is de
+kansberekening ook niet meer nodig.
+"""
+
 import pandas as pd
 import json
 

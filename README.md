@@ -36,7 +36,7 @@ Noem de afbeelding "bg.png" zodat het programma het kan vinden
 ** Dit hebben we binnen deze tijd helaas niet kunnen oplossen omdat de afbeelding dan "gescaled" zou moeten worden, met verhoudingen niet alleen aan de resolutie, maar ook met de longitude en latitude van de wereld.
 
 
-## Uitleg van de Visualisatie zelf
+## Uitleg over de Visualisatie 
 
 De cyaan gekleurde vierkanten zijn lussen, deze lichten op in een oranje kleur als deze geactiveerd word.
 Druk knoppen zijn paarse vierkantjes, en veranderen ook naar oranje wanneer geactiveerd.
@@ -44,10 +44,14 @@ Als je de externe data bekijkt heeft de externe gps data een zwart vierkantje om
 Stoplichten worden weergegeven in de kleur die ze op dat moment weergeven en zijn gevormd naar een rondje met een streepje er doorheen.
 
 
-**Een voorbeeld** 
+**Een voorbeeld visualisatie** 
 
 
 ![Visualisatie](https://github.com/mickers13/Vialis-1-Verkeersimulatie/blob/main/Main_Program/overig/visualisatie.PNG)
+
+
+**Een voorbeeld simulatie**
+![Alt Text](https://github.com/mickers13/Vialis-1-Verkeersimulatie/blob/main/Main_Program/overig/auto_over_kruispunt.gif)
 
 ## Test code
 

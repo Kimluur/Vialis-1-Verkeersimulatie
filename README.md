@@ -44,13 +44,10 @@ Als je de externe data bekijkt heeft de externe gps data een zwart vierkantje om
 Stoplichten worden weergegeven in de kleur die ze op dat moment weergeven en zijn gevormd naar een rondje met een streepje er doorheen.
 
 
-**Een voorbeeld visualisatie** 
-
-
-![Visualisatie](https://github.com/mickers13/Vialis-1-Verkeersimulatie/blob/main/Main_Program/overig/visualisatie.PNG)
-
-
 **Een voorbeeld simulatie**
+
+
+
 ![Alt Text](https://github.com/mickers13/Vialis-1-Verkeersimulatie/blob/main/Main_Program/overig/auto_over_kruispunt.gif)
 
 ## Test code

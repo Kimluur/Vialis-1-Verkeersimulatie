@@ -1,4 +1,5 @@
-from Mick.mainMick import *
+from unittest import TestCase
+from mainMick import *
 
 
 class testworld(unittest.TestCase):
@@ -7,12 +8,12 @@ class testworld(unittest.TestCase):
     win = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()
     pygame.display.set_caption("AutoSim")
-    background = pygame.image.load('../bg.png')
+    background = pygame.image.load('bg.png')
     autoBreedte = 40
     lusSizeDefault = (8, 8)
 
     # Json/ data related imports
-    dfKruis1 = loadJsontoDf("../bos210.json")
+    dfKruis1 = loadJsontoDf("bos210.json")
 
     def test_binnen_scherm(self):
         """

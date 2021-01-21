@@ -1,4 +1,4 @@
-from coordFunctions import *
+from coord_functions import *
 import pygame
 
 

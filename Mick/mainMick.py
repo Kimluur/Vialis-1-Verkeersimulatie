@@ -5,8 +5,8 @@ import numpy as np
 import math
 import json
 import pygame_textinput
-from coordFunctions import *
-from pygameExtras import *
+from coord_functions import *
+from pygame_extras import *
 from get_car_dataframe import main_dataframe
 from car_class import *
 """
@@ -26,14 +26,14 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-def loadcsvtoDf(filename):
-    try:
-        dftime = pd.read_csv(filename, delimiter=";", low_memory=False)
+def loadcsvtoDf(filename,delimiter = ";"):
+    # try:
+        dftime = pd.read_csv(filename, delimiter=delimiter, low_memory=False)
         print(bcolors.OKBLUE + "Loaded csv for ", filename, bcolors.HEADER)
         return dftime
-    except:
-        print(bcolors.FAIL + "Loading csv for ", filename, " failed" + bcolors.HEADER)
-        return False
+    # except:
+    #     print(bcolors.FAIL + "Loading csv for ", filename, " failed" + bcolors.HEADER)
+    #     return False
 
 
 def loadJsontoDf(filename):
@@ -64,7 +64,7 @@ dfKruis1 = loadJsontoDf("../bos210.json")
 dfKruis2 = loadJsontoDf("bos211.json")  # unused TODO: NEEDS TO BE ADDED LATER!
 dfTime = loadcsvtoDf("../BOS210_20210108_20210112.csv")
 dfStoplicht1 = loadJsontoDf("../b210_stoplicht.json")
-
+dfWachtrij = loadcsvtoDf("../Wachtrij.csv",",")
 # visualisatie settings:
 lusSizeDefault = (8, 8)
 
@@ -106,6 +106,23 @@ class Sensor(object):
         else:
             pygame.draw.polygon(win, self.kleur, self.locatie)
 
+class HeatLane(object):
+    def __init__(self, locatie, kleur, name):
+        self.locatie = locatie
+        self.kleur = kleur
+        self.offKleur = kleur
+        self.name = name
+
+    def draw(self, win, time):
+        #instellingen voor lussen
+        if self.name in dfWachtrij.columns :
+            number = int(dfWachtrij[self.name].iloc[time])
+
+            number = int(255/(number+1))
+            print(number)
+            self.kleur = (number, 2, 2)
+
+            pygame.draw.polygon(win, self.kleur, self.locatie)
 # define all objects:
 
 # Alle Sensoren moeten hier toegevoegd worden die op het moment op het schermzijn:
@@ -166,8 +183,52 @@ def loadSensors(alleSensoren, dfkruis, dfstoplicht):
 
 loadSensors(alleSensoren, dfKruis1, dfStoplicht1)
 
+def findGroup(number,lanes):
+    group = (str(number.name[0])+str(number.name[1]))
+    if group in lanes:
+        if number in lanes[group]:
+            pass
+        else:
+            lanes[group].append(number)
+    else:
+        lanes[group] = [number]
+
+def mapLane(lanes, heatLanes):
+    print(lanes)
+    for i in lanes:
+        print("alles in: ",i,"\n")
+        count = 0
+        for j in lanes[i]:
+
+            print(j)
+            if j.locgeo and count < 2:
+                if count == 0:
+                    firstSensor = j
+                elif count == 1:
+                    lastSensor = j
+                else:
+                    break
+                count += 1
+
+                if count == 2:
+                    locA = firstSensor.locatie[0]
+                    locB = firstSensor.locatie[1]
+                    locC = lastSensor.locatie[0]
+                    locD = lastSensor.locatie[2]
+                    coords = [(locA),(locB),(locC),(locD)]
+                    heatLanes.append(HeatLane(coords,(255, 204, 204),i))
 
 
+def createHeat(alleSensoren,heatlanes):
+    lanes = {}
+    for i in alleSensoren:
+        findGroup(i,lanes)
+    mapLane(lanes,heatlanes)
+
+heatlanes = []
+createHeat(alleSensoren,heatlanes)
+dfWachtrij.set_index("time")
+print(heatlanes)
 
 def toTime(timeString):
     """
@@ -194,6 +255,8 @@ def redrawGameWindow(time, currenttime):
     win.blit(background, (0, 0))
     for j in alleSensoren:
         j.draw(win, time)
+    for y in heatlanes:
+        y.draw(win, time)
     win.blit(createAlphaRect((300, 500), 125, (255, 255, 255)), (resolution[0] - 300, 20))
     win.blit(textsurface, (resolution[0] - 280, 55))
     win.blit(currenttime, (10, 10))
@@ -213,7 +276,7 @@ def redrawGameWindow(time, currenttime):
     return time
 
 dataframe = main_dataframe()
-all_sprites = pygame.sprite.Group(NewCar([-200, -200], dataframe, "black"))
+all_sprites = pygame.sprite.Group(Car(dataframe, "black"))
 
 
 time = 0

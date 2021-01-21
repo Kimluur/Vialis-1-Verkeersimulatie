@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+Wachtrij.csv
 BOS210_20210108_20210112.csv
 .Python
 build/

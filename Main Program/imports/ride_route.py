@@ -104,7 +104,7 @@ def main():
         alleen zodat we deze allemaal weer kunnen geven"""
         route_points = []
         divider = 10000000
-        file_name = 'lanes.json'
+        file_name = '../data/lanes.json'
         with open(file_name) as json_file:
             data = json.load(json_file)
 
@@ -136,7 +136,7 @@ def main():
         lanes = {}
         curves = {}
         divider = 10000000
-        file_name = 'lanes.json'
+        file_name = '../data/lanes.json'
         with open(file_name) as json_file:
             data = json.load(json_file)
 
@@ -167,7 +167,7 @@ def main():
         """DIT IS EEN VOORBEELDFUNCTIE
         Deze functie stippelt een route/pad uit tussen een begin en eind.
         De auto kan voor het stoplicht nog van baan wisselen."""
-        file_name = 'lanes.json'
+        file_name = '../data/lanes.json'
         with open(file_name) as json_file:
             data = json.load(json_file)
         df = pd.json_normalize(data, 'genericLane')
@@ -196,7 +196,7 @@ def main():
 
     screen = pg.display.set_mode(resolution)
     clock = pg.time.Clock()
-    background = pg.image.load('bg.png')
+    background = pg.image.load('../data/bg.png')
     run = True
 
     while run:

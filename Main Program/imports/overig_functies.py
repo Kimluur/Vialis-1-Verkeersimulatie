@@ -64,7 +64,7 @@ def velocity():
     """
     sensor = []
     activation = False
-    with open('../BOS210.csv') as f:
+    with open('../../BOS210.csv') as f:
         r = csv.reader(f, delimiter=';')
         for i in r:
             if i[17] == '|' and activation == False:
@@ -85,7 +85,7 @@ def busy_graph():
     Creates graph that points out what times are busy on the intersection
     :return: Matplotlib graph
     """
-    with open('../BOS210.csv') as f:
+    with open('../../BOS210.csv') as f:
         f = csv.reader(f, delimiter=';')
         dates = []
         act_amount = []
@@ -146,7 +146,7 @@ def trackCar(time, drivelane):
         tijd = df1["time"][(df1[column] == "|")]
         car[tijd.iloc[0]] = column
 
-    with open('oneCarTrak.json', 'w') as json_file:
+    with open('../data/oneCarTrak.json', 'w') as json_file:
         json.dump(car, json_file)
 
 # trackCar('08-01-2021 00:02:30.3', 11)

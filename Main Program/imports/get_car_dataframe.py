@@ -25,7 +25,7 @@ def fix_timestamp(datafr):
 def main_dataframe():
     """Deze functie returnt een dataframe met daarin de GPS locatie van onze eigen auto op elke 0.1 seconde"""
     # Lees CSV
-    df = pd.read_csv('../1.csv', delimiter=";")
+    df = pd.read_csv('../data/1.csv', delimiter=";")
 
     # Converteer 'timestamp' om naar datetime
     df.timestamp = df.timestamp.str.slice(stop=19)

@@ -60,7 +60,7 @@ def wachtrij_red(rijbanen, df):
                 cars = tel_red(df_lane, s)
                 w[lane[1]].update(cars)
 
-    with open('w_red.json', 'w') as fp:
+    with open('../data/w_red.json', 'w') as fp:
         json.dump(w, fp)
     print("Done with generating w_red.json")
 
@@ -130,7 +130,7 @@ def wachtrij_green(rijbanen, df):
                 cars = tel_deact(serie)
                 wachtrijen[i[1]][df.at[s, i[0]]] = cars
 
-    with open('w_green.json', 'w') as fp:
+    with open('../data/w_green.json', 'w') as fp:
         json.dump(wachtrijen, fp)
     print("Done with generating w_green.json")
 
@@ -166,14 +166,14 @@ def wachtrij_csv(rijbanen, df):
     df_w.insert(0, "time", tijd)
     df_w = df_w.set_index('time')
 
-    with open('w_red.json') as file:
+    with open('../data/w_red.json') as file:
         w_red = json.load(file)
     for lane in tqdm(w_red):
         for time, car in w_red[lane].items():
             # index = df[df["time"] == time].index.values[0]
             df_w.at[time, lane] = car
 
-    with open('w_green.json') as file1:
+    with open('../data/w_green.json') as file1:
         w_green = json.load(file1)
     for lane1 in tqdm(w_green):
         for time1, car1 in w_green[lane1].items():

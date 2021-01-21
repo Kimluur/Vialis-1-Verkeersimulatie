@@ -56,14 +56,14 @@ resolution = (1376, 984)
 win = pygame.display.set_mode(resolution)
 clock = pygame.time.Clock()
 pygame.display.set_caption("AutoSim")
-background = pygame.image.load('bg.png')
+background = pygame.image.load('data/bg.png')
 
 myfont = pygame.font.SysFont('Ariel', 36, bold=True)
 # Json/ data related imports
-dfKruis1 = loadJsontoDf("bos210.json")
+dfKruis1 = loadJsontoDf("data/bos210.json")
 dfKruis2 = loadJsontoDf("bos211.json")  # unused TODO: NEEDS TO BE ADDED LATER!
 dfTime = loadcsvtoDf("../BOS210_20210108_20210112.csv")
-dfStoplicht1 = loadJsontoDf("b210_stoplicht.json")
+dfStoplicht1 = loadJsontoDf("data/b210_stoplicht.json")
 dfWachtrij = loadcsvtoDf("../Wachtrij.csv",",")
 # visualisatie settings:
 lusSizeDefault = (8, 8)

@@ -16,7 +16,7 @@ def create_routes():
     alleen zodat we deze allemaal weer kunnen geven"""
     route_points = []
     divider = 10000000
-    file_name = 'lanes.json'
+    file_name = '../data/lanes.json'
     with open(file_name) as json_file:
         data = json.load(json_file)
 
@@ -57,7 +57,7 @@ def get_lanes_dict():
     lanes = {}
     curves = {}
     divider = 10000000
-    file_name = 'lanes.json'
+    file_name = '../data/lanes.json'
     with open(file_name) as json_file:
         data = json.load(json_file)
 
@@ -94,7 +94,7 @@ def create_path(start_lane, end_lane):
     """DIT IS EEN VOORBEELDFUNCTIE
     Deze functie stippelt een route/pad uit tussen een begin en eind.
     De auto kan voor het stoplicht nog van baan wisselen."""
-    file_name = 'lanes.json'
+    file_name = '../data/lanes.json'
     with open(file_name) as json_file:
         data = json.load(json_file)
     df = pd.json_normalize(data, 'genericLane')

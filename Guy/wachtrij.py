@@ -96,7 +96,7 @@ def tel_red(df, begin_index):
                         continue
     return time_cars
 
-# wachtrij_red(rijbanen_full, df)
+wachtrij_red(rijbanen_full, df)
 
 
 def wachtrij_green(rijbanen, df):
@@ -154,7 +154,7 @@ def tel_deact(serie):
             cars += 1
     return cars
 
-# wachtrij_green(rijbanen, df)
+wachtrij_green(rijbanen, df)
 
 
 def wachtrij_csv(df):

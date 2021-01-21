@@ -4,7 +4,7 @@ from Guy.overig_functies import csv2pd
 from tqdm import tqdm
 import re
 
-df = csv2pd('BOS210.csv')
+df = csv2pd('BOS210_20210108_20210112.csv')
 rijbanen = [['01','011'],
                 ['03', '031'],
                 ['04', '041'],
@@ -30,9 +30,10 @@ rijbanen_full = [['01','011', '014'],
 #             lane = [column]
 #             for lane_sensor in kolommen:
 #                 if re.search(f"{column}[0-9]")
-#
-#
+
+
 # lane_group(df)
+
 def wachtrij_red(rijbanen_full, df):
     """
 
@@ -187,7 +188,7 @@ def wachtrij_csv(df):
     # TODO: zodra laatste keer groen is zou je het aantal auto's naar 0 kunnen laten gaan. Dus voeg bij laatste tijdstip dat het groen/geel een 0 waarde in zodat er een vloeiendere loop is tussen groen en rood waardes.
     # return df_w
 
-wachtrij_df(df)
+wachtrij_csv(df)
 
 
 

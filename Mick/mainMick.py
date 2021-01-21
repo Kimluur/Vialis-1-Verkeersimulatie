@@ -106,6 +106,14 @@ class Sensor(object):
         else:
             pygame.draw.polygon(win, self.kleur, self.locatie)
 
+def get_color(minimum, maximum, value):
+    minimum, maximum = float(minimum), float(maximum)
+    ratio = 2 * (value-minimum) / (maximum - minimum)
+    b = int(max(0, 255*(1 - ratio)))
+    r = int(max(0, 255*(ratio - 1)))
+    g = 255 - b - r
+    return g, b, 0
+
 class HeatLane(object):
     def __init__(self, locatie, kleur, name):
         self.locatie = locatie
@@ -116,11 +124,10 @@ class HeatLane(object):
     def draw(self, win, time):
         #instellingen voor lussen
         if self.name in dfWachtrij.columns :
+            percent = 255 / 100
             number = int(dfWachtrij[self.name].iloc[time])
 
-            number = int(255/(number+1))
-            print(number)
-            self.kleur = (number, 2, 2)
+            self.kleur = (get_color(0,10,number))
 
             pygame.draw.polygon(win, self.kleur, self.locatie)
 # define all objects:

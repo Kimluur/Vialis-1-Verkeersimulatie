@@ -4,11 +4,14 @@ import pandas as pd
 import numpy as np
 import math
 import json
-import pygame_textinput
-from coord_functions import *
-from pygame_extras import *
-from get_car_dataframe import main_dataframe
-from car_class import *
+from Main_Program.code import pygame_textinput
+from Main_Program.code import pygame_extras
+from Main_Program.code import get_car_dataframe #import main_dataframe
+from Main_Program.code import car_class
+from Main_Program.code.coord_functions import latllongtocoord,latlngToScreenXY
+from Main_Program.code.get_car_dataframe import main_dataframe
+from Main_Program.code.pygame_extras import createAlphaRect
+
 """
 Main file with pygame simulation
 """
@@ -59,9 +62,8 @@ pygame.display.set_caption("AutoSim")
 background = pygame.image.load('data/bg.png')
 
 myfont = pygame.font.SysFont('Ariel', 36, bold=True)
-# Json/ data related imports
+# Json/ data related imports_
 dfKruis1 = loadJsontoDf("data/bos210.json")
-dfKruis2 = loadJsontoDf("bos211.json")  # unused TODO: NEEDS TO BE ADDED LATER!
 dfTime = loadcsvtoDf("../BOS210_20210108_20210112.csv")
 dfStoplicht1 = loadJsontoDf("data/b210_stoplicht.json")
 dfWachtrij = loadcsvtoDf("../Wachtrij.csv",",")
@@ -283,7 +285,7 @@ def redrawGameWindow(time, currenttime):
     return time
 
 dataframe = main_dataframe()
-all_sprites = pygame.sprite.Group(Car(dataframe, "black"))
+all_sprites = pygame.sprite.Group(car_class.Car(dataframe, "black"))
 
 
 time = 0

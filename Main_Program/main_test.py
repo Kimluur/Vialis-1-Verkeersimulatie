@@ -1,5 +1,5 @@
-from unittest import TestCase
-from mainMick import *
+import unittest
+from Main_Program.main import *
 
 
 class testworld(unittest.TestCase):
@@ -12,7 +12,7 @@ class testworld(unittest.TestCase):
     autoBreedte = 40
     lusSizeDefault = (8, 8)
 
-    # Json/ data related imports
+    # Json/ data related imports_
     dfKruis1 = loadJsontoDf("bos210.json")
 
     def test_binnen_scherm(self):
@@ -25,7 +25,3 @@ class testworld(unittest.TestCase):
         test2 = latlngToScreenXY(30.6832962, 53.2938813)[0]
         self.assertEqual(test2 < 0 or test2 > 1377, True)
 
-
-
-if __name__ == '__main__':
-    unittest.main()

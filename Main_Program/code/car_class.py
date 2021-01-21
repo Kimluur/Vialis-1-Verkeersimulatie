@@ -1,4 +1,4 @@
-from coord_functions import *
+from Main_Program.code import coord_functions
 import pygame
 
 
@@ -17,5 +17,5 @@ class Car(pygame.sprite.Sprite):
 
         if len(df_cor) == 1:  # Doet geen update als er geen positie is voor de auto op deze tijd
             df_cor = df_cor.reset_index()
-            self.position = latlngToScreenXY(df_cor['latitude'][0], df_cor['longitude'][0])
+            self.position = coord_functions.latlngToScreenXY(df_cor['latitude'][0], df_cor['longitude'][0])
             self.rect.center = self.position

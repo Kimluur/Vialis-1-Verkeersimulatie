@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 import math
 import json
-import pygame_textinput
 
 def createAlphaRect(size, alpha, colour):
     """Maakt een rectangle die ook transparant kan zijn,

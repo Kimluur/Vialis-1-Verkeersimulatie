@@ -10,15 +10,15 @@ Voor volledige uitleg van de onderzoek zie `map_naam\adviesrapport.pdf`
 
 ## Installatie
 
-Als allereerst moet BOS210_20210108_20210112.zip worden uitgepakt.
-Om de visualisatie te runnen ga naar `map_naam\` en run het bestand `main.py`.
+Als allereerst moet `kruispunt_data(unziphere).zip` en `wachtrij_data(unziphere).zip` worden uitgepakt.
+Om de visualisatie te runnen ga naar `Main_Program\` en run het bestand `main.py`.
 
-Er zou een pygame omgeving geopend moeten worden. In deze omgeving kan er een tijd ingevoerd worden om de visulisatie te runnen.
+Er zou een pygame omgeving geopend moeten worden. In deze omgeving kan er een tijd ingevoerd worden om de visualisatie te runnen.
 
 **Een voorbeeld** 
 Hier komt een foto van de visualisatie te staan
 
-Het is aanbevolen om de benodigde libraries te installeren. Hiervoor kan de volgende command uitgevoerd worden:
+Het is aanbevolen om de benodigde libraries te installeren. Hiervoor kan het volgende commando uitgevoerd worden:
 ```bash
     pip install -r requirements.txt
 ``` 
@@ -29,11 +29,11 @@ voor meer informatie zie https://docs.github.com/en/github/creating-cloning-and-
 
 In dit project hebben voor zover het mogelijk is de TDD en BDD principes werkwijze gehanteerd.
 Daarvoor kijk in de commits en de versiebeheer. 
-Om de test code te runnen ga naar `map_naam` en run het bestand `bestand_naam.py`. 
-Helaas zijn er meerdere functies binnen de visulisatie die niet getet kunnen zijn.
+Om de test code te runnen ga naar `Main_Program\tests\` en run het bestand `main_test.py`. 
+Helaas zijn er meerdere functies binnen de visualisatie die niet getest kunnen zijn.
 
 
 ## Hergebruiken van de code 
-Zodra je `main.py` hebt gerund dan kan je de tijd aanpassen en 
+Zodra je `main.py` hebt gerund dan kan je de tijd aanpassen TODO: Voeg nog het experiment toe
 
 > Groep 1 vialis casus 2021

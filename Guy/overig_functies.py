@@ -6,6 +6,49 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
 
+
+
+rijbanen = [['01','011'],
+                ['03', '031'],
+                ['04', '041'],
+                ['05', '051'],
+                ['11', '111'],
+                ['12', '121'],
+                ['41', '411']]
+
+def wachtrij(rijbanen):
+    """
+    Counts how many cars went by in a day for every lane
+    :param rijbanen: a list with all possible lanes
+    :return:
+    """
+    rijbanen = ['011','031','041','051','111','121','411']
+    # df = csv2pd('BOS210.csv')
+
+    for i in rijbanen:
+        print(f"{i[0]}: " + tel(df[i]))
+        return
+
+def tel(df1):
+    """
+    Counts how many times a sensor turns on.
+    :param df1: pandas serie
+    :return: the amount of cars as string
+    """
+    cars = 0
+    is_act = False
+    for row in df1:
+        if row == "|":
+            if is_act:
+                pass
+            else:
+                cars += 1
+                is_act = True
+        else:
+            if is_act:
+                is_act = False
+    return str(cars)
+
 def give_index(column_name):
     """
     Gives back index of column name in the header

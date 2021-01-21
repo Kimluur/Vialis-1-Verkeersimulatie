@@ -1,9 +1,8 @@
 import json
 import pandas as pd
-import numpy as np
-from Guy.Vialis_Functies import csv2pd
+from Guy.overig_functies import csv2pd
 from tqdm import tqdm
-
+import re
 
 df = csv2pd('BOS210.csv')
 rijbanen = [['01','011'],
@@ -21,41 +20,19 @@ rijbanen_full = [['01','011', '014'],
                 ['12','121', '124'],
                 ['41','411', '412']]
 
-
-def wachtrij(rijbanen):
-    """
-    Counts how many cars went by in a day for every lane
-    :param rijbanen: a list with all possible lanes
-    :return:
-    """
-    rijbanen = ['011','031','041','051','111','121','411']
-    # df = csv2pd('BOS210.csv')
-
-    for i in rijbanen:
-        print(f"{i[0]}: " + tel(df[i]))
-        return
-
-def tel(df1):
-    """
-    Counts how many times a sensor turns on.
-    :param df1: pandas serie
-    :return: the amount of cars as string
-    """
-    cars = 0
-    is_act = False
-    for row in df1:
-        if row == "|":
-            if is_act:
-                pass
-            else:
-                cars += 1
-                is_act = True
-        else:
-            if is_act:
-                is_act = False
-    return str(cars)
-
-
+# def lane_group(df):
+#     kolommen = list(df.columns)[1:]
+#     rijbanen = []
+#     print(kolommen)
+#     for column in kolommen:
+#
+#         if len(column) == 2:
+#             lane = [column]
+#             for lane_sensor in kolommen:
+#                 if re.search(f"{column}[0-9]")
+#
+#
+# lane_group(df)
 def wachtrij_red(rijbanen_full, df):
     """
 
@@ -70,7 +47,7 @@ def wachtrij_red(rijbanen_full, df):
         e = None
         red = False
         begin_time = None
-        w[lane[2]] = dict()
+        w[lane[1]] = dict()
         for index in tqdm(range(1, len(df[lane[1]]))):
             if df.at[index, lane[1]] != "#" and df.at[index, lane[1]] != "Z":
                 if red:
@@ -88,10 +65,11 @@ def wachtrij_red(rijbanen_full, df):
             if s != None and e != None:
                 df_lane = df.loc[s:e, [x for i,x in enumerate(lane) if i!=1]]
                 cars = tel_red(df_lane, s)
-                w[lane[2]].update(cars)
+                w[lane[1]].update(cars)
 
     with open('w_red.json', 'w') as fp:
         json.dump(w, fp)
+    print("Done with generating w_red.json")
 
 def tel_red(df, begin_index):
     time_cars = dict()
@@ -129,14 +107,14 @@ def wachtrij_green(rijbanen, df):
     :return: a dictionary with for each lane all of the timestamps where the light was green and how many cars passed by
     """
     wachtrijen = dict()
-    for i in tqdm(rijbanen):
+    for i in rijbanen:
         s = None
         e = None
         i.insert(0, "time")
         green = False
-        wachtrijen[i[2]] = dict()
+        wachtrijen[i[1]] = dict()
 
-        for j in range(len(df[i[1]])): # door de index heen
+        for j in tqdm(range(len(df[i[1]]))): # door de index heen
             if df.loc[j, i[1]] == "#" or df.loc[j, i[1]] == "Z":
                 if green:
                     continue
@@ -152,10 +130,11 @@ def wachtrij_green(rijbanen, df):
             if s != None and e != None:
                 serie = df.loc[s:e, i[2]]
                 cars = tel_deact(serie)
-                wachtrijen[i[2]][df.at[s, i[0]]] = cars
+                wachtrijen[i[1]][df.at[s, i[0]]] = cars
 
     with open('w_green.json', 'w') as fp:
         json.dump(wachtrijen, fp)
+    print("Done with generating w_green.json")
 
 def tel_deact(serie):
     """
@@ -177,9 +156,9 @@ def tel_deact(serie):
 # wachtrij_green(rijbanen, df)
 
 
-def wachtrij_df(df):
+def wachtrij_csv(df):
     tijd = df["time"]
-    kolommen = ['011', '031', '041', '051', '111', '121', '411']
+    kolommen = ['01', '03', '04', '05', '11', '12', '41']
     df_w = pd.DataFrame(columns=kolommen)
     df_w.insert(0, "time", tijd)
     df_w = df_w.set_index('time')
@@ -201,9 +180,12 @@ def wachtrij_df(df):
     df_w = df_w.apply(pd.to_numeric)
     df_w.interpolate(method='linear', inplace=True)
     df_w = df_w.apply(round)
+    df_w = df_w.fillna(0)
 
+    df_w.insert(0, "time", df_w.index)
+    df_w.to_csv('Wachtrij.csv',index=False)
     # TODO: zodra laatste keer groen is zou je het aantal auto's naar 0 kunnen laten gaan. Dus voeg bij laatste tijdstip dat het groen/geel een 0 waarde in zodat er een vloeiendere loop is tussen groen en rood waardes.
-    return df_w
+    # return df_w
 
 wachtrij_df(df)
 

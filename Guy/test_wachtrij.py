@@ -1,6 +1,6 @@
 from unittest import TestCase
 from Guy.wachtrij import tel
-from Guy.Vialis_Functies import csv2pd
+from Guy.overig_functies import csv2pd
 from Guy.wachtrij import wachtrij_achteraf
 
 class TestWachtrij(TestCase):

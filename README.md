@@ -48,7 +48,7 @@ Stoplichten worden weergegeven in de kleur die ze op dat moment weergeven en zij
 
 
 
-![Alt Text](https://github.com/mickers13/Vialis-1-Verkeersimulatie/blob/main/Main_Program/overig/auto_over_kruispunt.gif)
+![Alt Text](https://github.com/mickers13/Vialis-1-Verkeersimulatie/blob/main/Main_program/overig/auto_over_kruispunt.gif)
 
 ## Test code
 

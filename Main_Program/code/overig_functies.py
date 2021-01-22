@@ -6,6 +6,11 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
 
+"""
+These are all of the functions that were important somewhere in the project. 
+function csv2pd is the only function that is truly important for running wachtrij.py in the Main_Program\code folder
+"""
+
 rijbanen = [['01','011'],
                 ['03', '031'],
                 ['04', '041'],
@@ -113,7 +118,7 @@ def busy_graph():
         plt.show()
 
 def csv2pd(filename):
-    df = pd.read_csv(f"../{filename}", delimiter=";", low_memory=True)
+    df = pd.read_csv(f"../../{filename}", delimiter=";", low_memory=True)
     return df
 
 def trackCar(time, drivelane):

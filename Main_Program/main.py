@@ -182,12 +182,10 @@ def loadSensors(alleSensoren, dfkruis, dfstoplicht):
                 Sensor((latlngToScreenXY(a, b)), color, lusSizeDefault[0], lusSizeDefault[1], sid, False))
 
     for i in dfstoplicht.values:
-        print()
         kleur = (255, 0,0)
 
         xy = latlngToScreenXY(i[1], i[2])
         alleSensoren.append(Sensor([xy[0], xy[1]], kleur, 10, 3, i[0], False))
-        print(dfstoplicht)
 
 
 loadSensors(alleSensoren, dfKruis1, dfStoplicht1)
@@ -203,13 +201,9 @@ def findGroup(number,lanes):
         lanes[group] = [number]
 
 def mapLane(lanes, heatLanes):
-    print(lanes)
     for i in lanes:
-        print("alles in: ",i,"\n")
         count = 0
         for j in lanes[i]:
-
-            print(j)
             if j.locgeo and count < 2:
                 if count == 0:
                     firstSensor = j
@@ -237,7 +231,6 @@ def createHeat(alleSensoren,heatlanes):
 heatlanes = []
 createHeat(alleSensoren,heatlanes)
 dfWachtrij.set_index("time")
-print(heatlanes)
 
 def toTime(timeString):
     """

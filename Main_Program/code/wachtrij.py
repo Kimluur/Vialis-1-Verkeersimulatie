@@ -184,8 +184,9 @@ def wachtrij_csv(rijbanen, df):
     df_w = df_w.fillna(0)
 
     df_w.insert(0, "time", df_w.index)
-    df_w.to_csv(r'C:\Users\gsvpk\PycharmProjects\Vialis-1-Verkeersimulatie(new)'+'Wachtrij.csv',index=False)
-
+    df_w.to_csv(r'C:\Users\gsvpk\PycharmProjects\Vialis-1-Verkeersimulatie'+'Wachtrij.csv',index=False)
+    # if Wachtrij.csv isn't written in Vialis-1-Verkeersimulatie, the file should be placed in that folder
+    
 wachtrij_csv(lane_group(df), df)
 
 

@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from Mick.overig_functies import csv2pd
+from Main_Program.code.overig_functies import csv2pd
 from tqdm import tqdm
 import re
 
@@ -170,14 +170,12 @@ def wachtrij_csv(rijbanen, df):
         w_red = json.load(file)
     for lane in tqdm(w_red):
         for time, car in w_red[lane].items():
-            # index = df[df["time"] == time].index.values[0]
             df_w.at[time, lane] = car
 
     with open('../data/w_green.json') as file1:
         w_green = json.load(file1)
     for lane1 in tqdm(w_green):
         for time1, car1 in w_green[lane1].items():
-            # index1 = df[df["time"] == time1].index.values[0]
             df_w.at[time1, lane1] = car1
 
     df_w = df_w.apply(pd.to_numeric)

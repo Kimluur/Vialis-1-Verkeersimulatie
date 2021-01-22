@@ -5,8 +5,8 @@ Deze repo bevat de code van de visualisatie en de simulatie, de testcode, het ad
 
 
 ## Visualisatie en simulatie 
-De code van het programma kan je in `Programma` vinden. De resultaten van de onderzoek kan terug vinden in `map_naam\bestandnaam.ipynb` 
-Voor volledige uitleg van de onderzoek zie `map_naam\adviesrapport.pdf`
+De code van het programma kan je in `Programma` vinden. De resultaten van de onderzoek kan terug vinden in `Notebooks\wachtrij_analyse.html` 
+Voor volledige uitleg van de onderzoek zie `Adviesrapport\Adviesrapport.pdf`
 
 ## Installatie
 
